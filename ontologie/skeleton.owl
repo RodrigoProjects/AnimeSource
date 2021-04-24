@@ -1,0 +1,206 @@
+@prefix : <http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes> .
+
+<http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#hasGenre
+:hasGenre rdf:type owl:ObjectProperty ;
+          owl:inverseOf :isGenre ;
+          rdfs:domain :Anime ;
+          rdfs:range :Genre .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#hasLicense
+:hasLicense rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isLicense ;
+            rdfs:domain :Anime ;
+            rdfs:range :License .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#hasProducer
+:hasProducer rdf:type owl:ObjectProperty ;
+             rdfs:domain :Anime ;
+             rdfs:range :Producer .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#hasReference
+:hasReference rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isReference ;
+              rdfs:domain :Anime ;
+              rdfs:range :Reference .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#hasStudio
+:hasStudio rdf:type owl:ObjectProperty ;
+           owl:inverseOf :isStudio ;
+           rdfs:domain :Anime ;
+           rdfs:range :Studio .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#isGenre
+:isGenre rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#isLicense
+:isLicense rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#isProducer
+:isProducer rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isProducer .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#isReference
+:isReference rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#isStudio
+:isStudio rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#aired
+:aired rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#airing
+:airing rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#autor
+:autor rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#background
+:background rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#broadcast
+:broadcast rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#duration
+:duration rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#episodes
+:episodes rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#favorites
+:favorites rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#id
+:id rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#image_url
+:image_url rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#interested_num
+:interested_num rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#nome
+:nome rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#popularity
+:popularity rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#premiered
+:premiered rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#rank
+:rank rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#rating
+:rating rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#score
+:score rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#scored_by
+:scored_by rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#source
+:source rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#status
+:status rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#title
+:title rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#title_english
+:title_english rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#title_japanese
+:title_japanese rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#title_synonyms
+:title_synonyms rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#type
+:type rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#Anime
+:Anime rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#Genre
+:Genre rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#License
+:License rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#Producer
+:Producer rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#Reference
+:Reference rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#Studio
+:Studio rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#Theme_Music
+:Theme_Music rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
