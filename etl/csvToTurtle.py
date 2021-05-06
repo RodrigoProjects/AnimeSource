@@ -1,6 +1,7 @@
 import sys
 import csv
 import json
+from re import *
 
 def main(argv):
     size = len(argv)
@@ -79,7 +80,7 @@ def toTTL(r):
     producers = dict()
     references = dict() # nao percebi as referencias ?? --TODO
     studios = dict()
-    themes = dict() # Por fazer --TODO
+    themesDic = dict()
     c = 0
     idGener = 1
     idLicense = 1
@@ -96,69 +97,130 @@ def toTTL(r):
         out.write("#    Individuals\n")
         out.write("#################################################################\n\n")
 
-        # Write Animes and populate genres licensors producers studios
+        # Write and Populate genres licensors producers studios
         for d in data:
             obj = data[d]
             ida = obj['anime_id']
-            idAnime = f'anime_{ida}'
-            out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{idAnime}\n')
-            out.write(f':{idAnime} rdf:type owl:NamedIndividual ,\n')
-            out.write(f'\t\t\t\t:Anime ;\n')     
+            
             if 'genre' in obj:
                 lGenre = [x.strip() for x in obj['genre'].split(',')]
                 for x in lGenre:
                     if x not in genero:
                         genero[x] = f'genre_{idGener}'
                         idGener += 1
-                    out.write(f'\t\t\t:hasGenre :{genero[x]} ;\n')
+                        out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{genero[x]}\n')
+                        out.write(f':{genero[x]} rdf:type owl:NamedIndividual ,\n')
+                        out.write(f'\t\t\t\t:Genre ;\n')
+                        out.write(f'\t\t\t:name \"{x}\" .\n\n')
+
             if 'licensor' in obj:
-                if obj['licensor'] not in licensors:
-                    licensors[obj['licensor']] = f'licensor_{idLicense}'
-                    idLicense += 1
-                l = obj['licensor']
-                out.write(f'\t\t\t:hasLicense :{licensors[l]} ;\n')
+                lLice = [x.strip() for x in obj['licensor'].split(',')]
+                for x in lLice:
+                    if x not in licensors:
+                        licensors[x] = f'licensor_{idLicense}'
+                        idLicense += 1
+                        out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{licensors[x]}\n')
+                        out.write(f':{licensors[x]} rdf:type owl:NamedIndividual ,\n')
+                        out.write(f'\t\t\t\t:Genre ;\n')
+                        out.write(f'\t\t\t:name \"{x}\" .\n\n')
+                
             if 'producer' in obj:
                 lProd = [x.strip() for x in obj['producer'].split(',')]
                 for x in lProd:
                     if x not in genero:
                         producers[x] = f'producer_{idProducer}'
                         idProducer += 1
+                        out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{producers[x]}\n')
+                        out.write(f':{producers[x]} rdf:type owl:NamedIndividual ,\n')
+                        out.write(f'\t\t\t\t:Producer ;\n')
+                        out.write(f'\t\t\t:name \"{x}\" .\n\n')
+                        
+            if 'studio' in obj:
+                lStudio = [x.strip() for x in obj['studio'].split(',')]
+                for x in lStudio:
+                    if x not in studios:
+                        studios[x] = f'studio_{idStudio}'
+                        idStudio += 1
+                        out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{studios[x]}\n')
+                        out.write(f':{studios[x]} rdf:type owl:NamedIndividual ,\n')
+                        out.write(f'\t\t\t\t:Studio ;\n')
+                        out.write(f'\t\t\t:name \"{x}\" .\n\n')
+
+            themesDic[obj['anime_id']]=[]
+            if 'opening_theme' in obj:
+                if obj['opening_theme'] != '[]':
+                    themes = obj['opening_theme'].split('\', \'')
+                    for theme in themes:
+                        out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#Theme_{idTheme}\n')
+                        out.write(f':Theme_{idTheme} rdf:type owl:NamedIndividual ,\n')
+                        themesDic[obj['anime_id']].append(f'Theme_{idTheme}')
+                        idTheme += 1
+                        out.write(f'\t\t\t\t:Theme_Music ;\n')
+                        by = split(r'"?-?\s*?by',theme)
+                        theme_name =  sub(r'(\[\')?(#\d+:?)?\s*\"','',by[0])
+                        if len(by) >= 2:
+                            aux = sub(r'\(.*?[)\r\n]','',by[1])
+                            lArtist = [x.strip() for x in aux.split(',')]
+                            lArtist[-1] = sub(r'[\'\]]','',lArtist[-1]).strip()
+                            for x in lArtist:
+                                a = split(r'\s&\s',x)
+                                for s in a:
+                                    out.write(f'\t\t\t:artist \"{s}\" ;\n')
+                        out.write(f'\t\t\t:title \"{theme_name}\" .\n\n')
+
+            if 'ending_theme' in obj:
+                if obj['ending_theme'] != '[]':
+                    themes = obj['ending_theme'].split('\', \'')
+                    for theme in themes:
+                        out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#Theme_{idTheme}\n')
+                        out.write(f':Theme_{idTheme} rdf:type owl:NamedIndividual ,\n')
+                        themesDic[obj['anime_id']].append(f'Theme_{idTheme}')
+                        idTheme += 1
+                        out.write(f'\t\t\t\t:Theme_Music ;\n')
+                        by = split(r'"?-?\s*?by',theme)
+                        theme_name =  sub(r'(\[\')?(#\d+:?)?\s*\"','',by[0])
+                        if len(by) >= 2:
+                            aux = sub(r'\(.*?[)\r\n]','',by[1])
+                            lArtist = [x.strip() for x in aux.split(',')]
+                            lArtist[-1] = sub(r'[\'\]]','',lArtist[-1]).strip()
+                            for x in lArtist:
+                                a = split(r'\s&\s',x)
+                                for s in a:
+                                    out.write(f'\t\t\t:artist \"{s}\" ;\n')
+                        out.write(f'\t\t\t:title \"{theme_name}\" .\n\n')
+               
+            c += 1
+            #print anime
+            idAnime = f'anime_{ida}'
+            out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{idAnime}\n')
+            out.write(f':{idAnime} rdf:type owl:NamedIndividual ,\n')
+            out.write(f'\t\t\t\t:Anime ;\n') 
+            if 'genre' in obj:  
+                lGenre = [x.strip() for x in obj['genre'].split(',')]
+                for x in lGenre:
+                    out.write(f'\t\t\t:hasGenre :{genero[x]} ;\n')
+            if 'licensor' in obj:
+                lLice = [x.strip() for x in obj['licensor'].split(',')]
+                for x in lLice:
+                    out.write(f'\t\t\t:hasLicense :{licensors[x]} ;\n')
+            if 'producer' in obj:
+                lProd = [x.strip() for x in obj['producer'].split(',')]
+                for x in lProd:
                     out.write(f'\t\t\t:hasProducer :{producers[x]} ;\n')
             if 'studio' in obj:
-                if obj['studio'] not in studios:
-                    studios[obj['studio']] = f'studio_{idStudio}'
-                    idStudio += 1
-                s = obj['studio']
-                out.write(f'\t\t\t:hasStudio :{studios[s]} ;\n')
+                lStudio = [x.strip() for x in obj['studio'].split(',')]
+                for x in lStudio:
+                    out.write(f'\t\t\t:hasStudio :{studios[x]} ;\n')
+
+            for x in themesDic[obj['anime_id']]:
+                out.write(f'\t\t\t:hasTheme :{x} ;\n')
+
             t = obj['title']
             out.write(f'\t\t:title "{t}" .\n\n')
-            c += 1
 
-        # Write genres
-        for genro in genero:
-            out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{genero[genro]}\n')
-            out.write(f':{genero[genro]} rdf:type owl:NamedIndividual ,\n')
-            out.write(f'\t\t\t\t:Genre ;\n')
-            out.write(f'\t\t\t:name \"{genro}\" .\n\n')
-        # Write licensors
-        for licensor in licensors:
-            out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{licensors[licensor]}\n')
-            out.write(f':{licensors[licensor]} rdf:type owl:NamedIndividual ,\n')
-            out.write(f'\t\t\t\t:Genre ;\n')
-            out.write(f'\t\t\t:name \"{licensor}\" .\n\n')
-        # Write producers
-        for producer in producers:
-            out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{producers[producer]}\n')
-            out.write(f':{producers[producer]} rdf:type owl:NamedIndividual ,\n')
-            out.write(f'\t\t\t\t:Producer ;\n')
-            out.write(f'\t\t\t:name \"{producer}\" .\n\n')
-        # Write studios
-        for studio in studios:
-            out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{studios[studio]}\n')
-            out.write(f':{studios[studio]} rdf:type owl:NamedIndividual ,\n')
-            out.write(f'\t\t\t\t:Studio ;\n')
-            out.write(f'\t\t\t:name \"{studio}\" .\n\n')
-        print(f'Tratados\n\t{c} animes\n\t{idGener-1} generos\n\t{idProducer-1} producer\n\t{idLicense-1} licensor\n\t{idStudio-1} studio')
+
+
+        print(f'Tratados\n\t{c} animes\n\t{idGener-1} generos\n\t{idProducer-1} producer\n\t{idLicense-1} licensor\n\t{idStudio-1} studio\n\t{idTheme} Themes')
 
 
 if __name__ == "__main__":
