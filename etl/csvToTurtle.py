@@ -127,7 +127,7 @@ def toTTL(r):
             if 'producer' in obj:
                 lProd = [x.strip() for x in obj['producer'].split(',')]
                 for x in lProd:
-                    if x not in genero:
+                    if x not in genero and x != "":
                         producers[x] = f'producer_{idProducer}'
                         idProducer += 1
                         out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{producers[x]}\n')
@@ -188,7 +188,7 @@ def toTTL(r):
                                 for s in a:
                                     out.write(f'\t\t\t:artist \"{s}\" ;\n')
                         out.write(f'\t\t\t:title \"{theme_name}\" .\n\n')
-               
+            
             c += 1
             #print anime
             idAnime = f'anime_{ida}'
@@ -198,22 +198,65 @@ def toTTL(r):
             if 'genre' in obj:  
                 lGenre = [x.strip() for x in obj['genre'].split(',')]
                 for x in lGenre:
-                    out.write(f'\t\t\t:hasGenre :{genero[x]} ;\n')
+                    if x != "":
+                        out.write(f'\t\t\t:hasGenre :{genero[x]} ;\n')
             if 'licensor' in obj:
                 lLice = [x.strip() for x in obj['licensor'].split(',')]
                 for x in lLice:
-                    out.write(f'\t\t\t:hasLicense :{licensors[x]} ;\n')
+                    if x != "":
+                        out.write(f'\t\t\t:hasLicense :{licensors[x]} ;\n')
             if 'producer' in obj:
                 lProd = [x.strip() for x in obj['producer'].split(',')]
                 for x in lProd:
-                    out.write(f'\t\t\t:hasProducer :{producers[x]} ;\n')
+                    if x != "":
+                        out.write(f'\t\t\t:hasProducer :{producers[x]} ;\n')
             if 'studio' in obj:
                 lStudio = [x.strip() for x in obj['studio'].split(',')]
                 for x in lStudio:
-                    out.write(f'\t\t\t:hasStudio :{studios[x]} ;\n')
+                    if x != "":
+                        out.write(f'\t\t\t:hasStudio :{studios[x]} ;\n')
 
             for x in themesDic[obj['anime_id']]:
                 out.write(f'\t\t\t:hasTheme :{x} ;\n')
+                
+            if 'aired_string' in obj:
+                out.write(f"\t\t\t:aired :\"{obj['aired_string']}\" ;\n")
+            if 'type' in obj:
+                out.write(f"\t\t\t:type :\"{obj['type']}\" ;\n")
+            if 'title_synonyms' in obj and obj['title_synonyms'] != "":
+                out.write(f"\t\t\t:title_synonyms :\"{obj['title_synonyms']}\" ;\n")
+            if 'title_japanese' in obj:
+                out.write(f"\t\t\t:title_japanese :\"{obj['title_japanese']}\" ;\n")
+            if 'title_english' in obj and obj['title_english'] != "":
+                out.write(f"\t\t\t:title_english :\"{obj['title_english']}\" ;\n")
+            if 'status' in obj:
+                out.write(f"\t\t\t:status :\"{obj['status']}\" ;\n")
+            if 'source' in obj:
+                out.write(f"\t\t\t:source :\"{obj['source']}\" ;\n")
+            if 'scored_by' in obj:
+                out.write(f"\t\t\t:scored_by :{obj['scored_by']} ;\n")
+            if 'score' in obj:
+                out.write(f"\t\t\t:score :\"{obj['score']}\" ;\n")
+            if 'rating' in obj:
+                out.write(f"\t\t\t:rating :\"{obj['rating']}\" ;\n")
+            if 'rank' in obj:
+                out.write(f"\t\t\t:rank :\"{obj['rank']}\" ;\n")
+            if 'premiered' in obj:
+                out.write(f"\t\t\t:premiered :\"{obj['premiered']}\" ;\n")
+            if 'popularity' in obj:
+                out.write(f"\t\t\t:popularity :{obj['popularity']} ;\n")
+            if 'image_url' in obj:
+                out.write(f"\t\t\t:image_url :\"{obj['image_url']}\" ;\n")
+            if 'favorites' in obj:
+                out.write(f"\t\t\t:favorites :{obj['favorites']} ;\n")
+            if 'episodes' in obj:
+                out.write(f"\t\t\t:episodes :{obj['episodes']};\n")
+            if 'duration' in obj:
+                out.write(f"\t\t\t:duration :\"{obj['duration']}\" ;\n")
+            if 'broadcast' in obj and obj['broadcast'] != "":
+                out.write(f"\t\t\t:broadcast :\"{obj['broadcast']}\" ;\n")
+            if 'background' in obj and obj['background'] != "":
+                out.write(f"\t\t\t:background :\"{obj['background']}\" ;\n")
 
             t = obj['title']
             out.write(f'\t\t:title "{t}" .\n\n')
