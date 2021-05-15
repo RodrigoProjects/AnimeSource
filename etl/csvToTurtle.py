@@ -220,43 +220,43 @@ def toTTL(r):
                 out.write(f'\t\t\t:hasTheme :{x} ;\n')
                 
             if 'aired_string' in obj:
-                out.write(f"\t\t\t:aired :\"{obj['aired_string']}\" ;\n")
+                out.write(f"\t\t\t:aired \"{obj['aired_string']}\" ;\n")
             if 'type' in obj:
-                out.write(f"\t\t\t:type :\"{obj['type']}\" ;\n")
+                out.write(f"\t\t\t:type \"{obj['type']}\" ;\n")
             if 'title_synonyms' in obj and obj['title_synonyms'] != "":
-                out.write(f"\t\t\t:title_synonyms :\"{obj['title_synonyms']}\" ;\n")
+                out.write(f"\t\t\t:title_synonyms \"{obj['title_synonyms']}\" ;\n")
             if 'title_japanese' in obj:
-                out.write(f"\t\t\t:title_japanese :\"{obj['title_japanese']}\" ;\n")
+                out.write(f"\t\t\t:title_japanese \"{obj['title_japanese']}\" ;\n")
             if 'title_english' in obj and obj['title_english'] != "":
-                out.write(f"\t\t\t:title_english :\"{obj['title_english']}\" ;\n")
+                out.write(f"\t\t\t:title_english \"{obj['title_english']}\" ;\n")
             if 'status' in obj:
-                out.write(f"\t\t\t:status :\"{obj['status']}\" ;\n")
+                out.write(f"\t\t\t:status \"{obj['status']}\" ;\n")
             if 'source' in obj:
-                out.write(f"\t\t\t:source :\"{obj['source']}\" ;\n")
+                out.write(f"\t\t\t:source \"{obj['source']}\" ;\n")
             if 'scored_by' in obj:
-                out.write(f"\t\t\t:scored_by :{obj['scored_by']} ;\n")
+                out.write(f"\t\t\t:scored_by {obj['scored_by']} ;\n")
             if 'score' in obj:
-                out.write(f"\t\t\t:score :\"{obj['score']}\" ;\n")
+                out.write(f"\t\t\t:score \"{obj['score']}\" ;\n")
             if 'rating' in obj:
-                out.write(f"\t\t\t:rating :\"{obj['rating']}\" ;\n")
+                out.write(f"\t\t\t:rating \"{obj['rating']}\" ;\n")
             if 'rank' in obj:
-                out.write(f"\t\t\t:rank :\"{obj['rank']}\" ;\n")
+                out.write(f"\t\t\t:rank \"{obj['rank']}\" ;\n")
             if 'premiered' in obj:
-                out.write(f"\t\t\t:premiered :\"{obj['premiered']}\" ;\n")
+                out.write(f"\t\t\t:premiered \"{obj['premiered']}\" ;\n")
             if 'popularity' in obj:
-                out.write(f"\t\t\t:popularity :{obj['popularity']} ;\n")
+                out.write(f"\t\t\t:popularity {obj['popularity']} ;\n")
             if 'image_url' in obj:
-                out.write(f"\t\t\t:image_url :\"{obj['image_url']}\" ;\n")
+                out.write(f"\t\t\t:image_url \"{obj['image_url']}\" ;\n")
             if 'favorites' in obj:
-                out.write(f"\t\t\t:favorites :{obj['favorites']} ;\n")
+                out.write(f"\t\t\t:favorites {obj['favorites']} ;\n")
             if 'episodes' in obj:
-                out.write(f"\t\t\t:episodes :{obj['episodes']};\n")
+                out.write(f"\t\t\t:episodes {obj['episodes']};\n")
             if 'duration' in obj:
-                out.write(f"\t\t\t:duration :\"{obj['duration']}\" ;\n")
+                out.write(f"\t\t\t:duration \"{obj['duration']}\" ;\n")
             if 'broadcast' in obj and obj['broadcast'] != "":
-                out.write(f"\t\t\t:broadcast :\"{obj['broadcast']}\" ;\n")
+                out.write(f"\t\t\t:broadcast \"{obj['broadcast']}\" ;\n")
             if 'background' in obj and obj['background'] != "":
-                out.write(f"\t\t\t:background :\"{obj['background']}\" ;\n")
+                out.write(f"\t\t\t:background \"{obj['background']}\" ;\n")
 
             t = obj['title']
             out.write(f'\t\t:title "{t}" .\n\n')
