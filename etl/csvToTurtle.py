@@ -165,7 +165,8 @@ def toTTL(r):
                             for x in lArtist:
                                 a = split(r'\s&\s',x)
                                 for s in a:
-                                    out.write(f'\t\t\t:artist \"{s}\" ;\n')
+                                    s1 = s.replace('"','')
+                                    out.write(f'\t\t\t:artist \"{s1}\" ;\n')
                         out.write(f'\t\t\t:title \"{theme_name}\" .\n\n')
 
             if 'ending_theme' in obj:
@@ -186,7 +187,8 @@ def toTTL(r):
                             for x in lArtist:
                                 a = split(r'\s&\s',x)
                                 for s in a:
-                                    out.write(f'\t\t\t:artist \"{s}\" ;\n')
+                                    s1 = s.replace('"','')
+                                    out.write(f'\t\t\t:artist \"{s1}\" ;\n')
                         out.write(f'\t\t\t:title \"{theme_name}\" .\n\n')
             
             c += 1
@@ -220,46 +222,64 @@ def toTTL(r):
                 out.write(f'\t\t\t:hasTheme :{x} ;\n')
                 
             if 'aired_string' in obj:
-                out.write(f"\t\t\t:aired \"{obj['aired_string']}\" ;\n")
+                a = obj['aired_string'].replace('"','')
+                out.write(f"\t\t\t:aired \"{a}\" ;\n")
             if 'type' in obj:
-                out.write(f"\t\t\t:type \"{obj['type']}\" ;\n")
+                t = obj['type'].replace('"','')
+                out.write(f"\t\t\t:type \"{t}\" ;\n")
             if 'title_synonyms' in obj and obj['title_synonyms'] != "":
-                out.write(f"\t\t\t:title_synonyms \"{obj['title_synonyms']}\" ;\n")
+                ts = obj['title_synonyms'].replace('"','')
+                out.write(f"\t\t\t:title_synonyms \"{ts}\" ;\n")
             if 'title_japanese' in obj:
-                out.write(f"\t\t\t:title_japanese \"{obj['title_japanese']}\" ;\n")
+                tj = obj['title_japanese'].replace('"','')
+                out.write(f"\t\t\t:title_japanese \"{tj}\" ;\n")
             if 'title_english' in obj and obj['title_english'] != "":
-                out.write(f"\t\t\t:title_english \"{obj['title_english']}\" ;\n")
+                te = obj['title_english'].replace('"','')
+                out.write(f"\t\t\t:title_english \"{te}\" ;\n")
             if 'status' in obj:
-                out.write(f"\t\t\t:status \"{obj['status']}\" ;\n")
+                st = obj['status'].replace('"','')
+                out.write(f"\t\t\t:status \"{st}\" ;\n")
             if 'source' in obj:
-                out.write(f"\t\t\t:source \"{obj['source']}\" ;\n")
+                sr = obj['source'].replace('"','')
+                out.write(f"\t\t\t:source \"{sr}\" ;\n")
             if 'scored_by' in obj:
-                out.write(f"\t\t\t:scored_by {obj['scored_by']} ;\n")
+                sb = obj['scored_by'].replace('"','')
+                out.write(f"\t\t\t:scored_by {sb} ;\n")
             if 'score' in obj:
-                out.write(f"\t\t\t:score \"{obj['score']}\" ;\n")
+                sc = obj['score'].replace('"','')
+                out.write(f"\t\t\t:score \"{sc}\" ;\n")
             if 'rating' in obj:
-                out.write(f"\t\t\t:rating \"{obj['rating']}\" ;\n")
+                r = obj['rating'].replace('"','')
+                out.write(f"\t\t\t:rating \"{r}\" ;\n")
             if 'rank' in obj:
-                out.write(f"\t\t\t:rank \"{obj['rank']}\" ;\n")
+                ra = obj['rank'].replace('"','')
+                out.write(f"\t\t\t:rank \"{ra}\" ;\n")
             if 'premiered' in obj:
-                out.write(f"\t\t\t:premiered \"{obj['premiered']}\" ;\n")
+                p = obj['premiered'].replace('"','')
+                out.write(f"\t\t\t:premiered \"{p}\" ;\n")
             if 'popularity' in obj:
-                out.write(f"\t\t\t:popularity {obj['popularity']} ;\n")
+                pop = obj['popularity'].replace('"','')
+                out.write(f"\t\t\t:popularity {pop} ;\n")
             if 'image_url' in obj:
-                out.write(f"\t\t\t:image_url \"{obj['image_url']}\" ;\n")
+                img = obj['image_url'].replace('"','')
+                out.write(f"\t\t\t:image_url \"{img}\" ;\n")
             if 'favorites' in obj:
-                out.write(f"\t\t\t:favorites {obj['favorites']} ;\n")
+                f = obj['favorites'].replace('"','')
+                out.write(f"\t\t\t:favorites {f} ;\n")
             if 'episodes' in obj:
-                out.write(f"\t\t\t:episodes {obj['episodes']};\n")
+                ep = obj['episodes'].replace('"','')
+                out.write(f"\t\t\t:episodes {ep};\n")
             if 'duration' in obj:
-                out.write(f"\t\t\t:duration \"{obj['duration']}\" ;\n")
+                d = obj['duration'].replace('"','')
+                out.write(f"\t\t\t:duration \"{d}\" ;\n")
             if 'broadcast' in obj and obj['broadcast'] != "":
-                out.write(f"\t\t\t:broadcast \"{obj['broadcast']}\" ;\n")
+                br = obj['broadcast'].replace('"','')
+                out.write(f"\t\t\t:broadcast \"{br}\" ;\n")
             if 'background' in obj and obj['background'] != "":
                 back = obj['background'].replace('"','')
                 out.write(f"\t\t\t:background \"{back}\" ;\n")
 
-            t = obj['title']
+            t = obj['title'].replace('"','\'')
             out.write(f'\t\t:title "{t}" .\n\n')
 
 
