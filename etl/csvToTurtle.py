@@ -256,7 +256,8 @@ def toTTL(r):
             if 'broadcast' in obj and obj['broadcast'] != "":
                 out.write(f"\t\t\t:broadcast \"{obj['broadcast']}\" ;\n")
             if 'background' in obj and obj['background'] != "":
-                out.write(f"\t\t\t:background \"{obj['background']}\" ;\n")
+                back = obj['background'].replace('"','')
+                out.write(f"\t\t\t:background \"{back}\" ;\n")
 
             t = obj['title']
             out.write(f'\t\t:title "{t}" .\n\n')
