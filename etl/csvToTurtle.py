@@ -278,7 +278,10 @@ def toTTL(r):
             if 'background' in obj and obj['background'] != "":
                 back = obj['background'].replace('"','')
                 out.write(f"\t\t\t:background \"{back}\" ;\n")
-
+            if 'members' in obj and obj['members'] != "":
+                back = obj['members'].replace('"','')
+                out.write(f"\t\t\t:interested_num \"{back}\" ;\n")
+                
             t = obj['title'].replace('"','\'')
             out.write(f'\t\t:title "{t}" .\n\n')
 
