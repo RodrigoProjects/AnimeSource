@@ -1,13 +1,16 @@
 <template>
-  <div class="home">
-    Hello World!
+  <div class="">
+    <Quote />
   </div>
 </template>
 
 <script>
+import Quote from "@/components/Quote"
+
 export default {
   name: 'Home',
   components: {
+    Quote
   }
 }
 </script>

@@ -1,11 +1,10 @@
 <template>
   <div class="font-mono">
     <Navbar />
-    <SearchBar class="lg:hidden"/>
-    <Quote />
+    <SearchBar class="lg:hidden"/>  
     <main>
       <div class="">
-        
+        <router-view />
       </div>
     </main>
   </div>
@@ -14,13 +13,11 @@
 <script>
 import Navbar from "@/components/Navbar"
 import SearchBar from "@/components/SearchBar"
-import Quote from "@/components/Quote"
 
 export default {
   components: {
      Navbar,
-     SearchBar,
-     Quote
+     SearchBar
   }
 }
 </script>
