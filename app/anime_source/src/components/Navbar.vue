@@ -22,7 +22,7 @@
               <template v-for="item in navigation" :key="item">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <a
-                  href="#"
+                  :href="item"
                   class="hover:bg-yellow-400 text-lg font-mono text-white px-3 py-2 rounded-md font-black"
                   >{{ item }}</a
                 >
@@ -53,14 +53,14 @@
           <template v-if="itemIdx === 0">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a
-              href="#"
+              :href="item"
               class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
               >{{ item }}</a
             >
           </template>
           <a
             v-else
-            href="#"
+            :href="item"
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >{{ item }}</a
           >
@@ -94,7 +94,7 @@
           <a
             v-for="item in profile"
             :key="item"
-            href="#"
+            :href="item"
             class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
             >{{ item }}</a
           >
@@ -105,12 +105,12 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import {MenuIcon , XIcon } from '@heroicons/vue/outline'
+import { ref } from "vue";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 
-const navigation = ['Studios', 'Editors']
-const profile = ['Your Profile', 'Settings', 'Sign out']
+const navigation = ["Studios", "Editors"];
+const profile = ["Your Profile", "Settings", "Sign out"];
 
 export default {
   components: {
@@ -121,15 +121,15 @@ export default {
     XIcon,
   },
   setup() {
-    const open = ref(false)
+    const open = ref(false);
 
     return {
       navigation,
       profile,
       open,
-    }
+    };
   },
-}
+};
 </script>
 
 <style>
