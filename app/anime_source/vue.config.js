@@ -1,7 +1,8 @@
+
 module.exports = {
     devServer: {
       proxy: {
-          '/ontobud': {
+          '/graphdb': {
               target: 'http://localhost:7200',
               secure: true,
               changeOrigin: true,
