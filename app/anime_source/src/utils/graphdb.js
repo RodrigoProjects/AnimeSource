@@ -7,18 +7,27 @@ PREFIX noInferences: <ontotext.com/explicit>
 PREFIX skos: <w3.org/2004/02/skos/core#>
 PREFIX : <http://www.semanticweb.org/rodrigop/ontologies/2021/3/animes#>
 `;
-/*
+
 export function fetchOntobud(q) {
-  let query = encodeURI(prefixes + q);
+  const body = new URLSearchParams();
+
+  body.append("query", prefixes + q);
+
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
 
   return axios.post(
-    "http://localhost:7200/repositories/animeSource?query" + query,
+    "http://localhost:7200/repositories/animeSource?query",
     body,
     config
   );
 }
-*/
+/*
 export function getGraphDB(query) {
   let q = encodeURI(prefixes + query);
   return axios.get("http://localhost:7200/repositories/animeSource?query=" + q);
 }
+*/
