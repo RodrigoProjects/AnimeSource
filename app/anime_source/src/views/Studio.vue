@@ -53,6 +53,7 @@ export default {
     gdb
       .fetchOntobud(query)
       .then((response) => {
+        console.log("tbm queria lol");
         console.log(response);
         this.quote = response.data;
       })

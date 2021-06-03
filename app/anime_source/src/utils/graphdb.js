@@ -13,21 +13,8 @@ export function fetchOntobud(q) {
 
   body.append("query", prefixes + q);
 
-  const config = {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  };
-
   return axios.post(
-    "http://localhost:7200/repositories/animeSource?query",
-    body,
-    config
+    "http://localhost:8080/graphdb/repositories/animeSource",
+    body
   );
 }
-/*
-export function getGraphDB(query) {
-  let q = encodeURI(prefixes + query);
-  return axios.get("http://localhost:7200/repositories/animeSource?query=" + q);
-}
-*/
