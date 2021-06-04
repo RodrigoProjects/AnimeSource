@@ -21,8 +21,13 @@ const routes = [
     component: () => import("@/views/Editor.vue"),
   },
   {
-    path: "/producer",
+    path: "/Producers",
     name: "Producers",
+    component: () => import("@/views/Producers.vue"),
+  },
+  {
+    path: "/producer/:id",
+    name: "Producer",
     component: () => import("@/views/Producer.vue"),
   },
   {

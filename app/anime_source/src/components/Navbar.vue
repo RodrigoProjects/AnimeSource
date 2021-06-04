@@ -109,7 +109,7 @@ import { ref } from "vue";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 
-const navigation = ["Studios", "Editors"];
+const navigation = ["Studios", "Producers"];
 const profile = ["Your Profile", "Settings", "Sign out"];
 
 export default {
