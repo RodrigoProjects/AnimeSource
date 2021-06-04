@@ -127,7 +127,7 @@ def toTTL(r):
             if 'producer' in obj:
                 lProd = [x.strip() for x in obj['producer'].split(',')]
                 for x in lProd:
-                    if x not in genero and x != "":
+                    if x not in producers and x != "":
                         producers[x] = f'producer_{idProducer}'
                         idProducer += 1
                         out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{producers[x]}\n')
