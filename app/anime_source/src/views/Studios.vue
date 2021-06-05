@@ -6,7 +6,7 @@
       <template v-for="item in studios" :key="item">
         <!--Card 1-->
         <div class="rounded overflow-hidden shadow-lg">
-          <img class="w-full" src="/mountain.jpg" alt="Mountain" />
+          <img class="w-full" :src="item.photo" alt="Mountain" />
           <div class="px-6 py-4">
             <a :href="'Studios/' + item.id" class="font-bold text-xl mb-2">{{
               item.nome
@@ -39,6 +39,9 @@
 
 <script>
 var gdb = require("../utils/graphdb");
+
+const axios = require("axios");
+
 export default {
   data() {
     return {
@@ -47,23 +50,37 @@ export default {
   },
   created: function () {
     var query = `
-    select (count(?anime) as ?NAnimes ) ?studio ?nome  where { 
+    select (count(?anime) as ?NAnimes ) ?studio ?nome  where {
         ?anime ?s :Anime;
-             :hasStudio ?studio. 
+             :hasStudio ?studio.
         ?studio :name ?nome.
     } group by ?studio ?nome
-      order by DESC(?NAnimes) 
+      order by DESC(?NAnimes)
     `;
     gdb
       .fetchOntobud(query)
       .then((response) => {
-        this.studios = response.data.results.bindings.map((d) => {
-          return {
-            id: d.studio.value.split("#")[1].split("_")[1],
-            NAnimes: d.NAnimes.value,
-            nome: d.nome.value,
-          };
-        });
+        this.studios = response.data.results.bindings
+          .map((d) => {
+            var nome = d.nome.value.replace(" ", "+");
+            axios
+              .get(
+                "http://localhost:8080/serpapi/search.json?q=" +
+                  nome +
+                  "+studio+logo&tbm=isch&ijn=0&api_key=secret_api_key"
+              )
+              .then((dat) => {
+                console.log(dat);
+                return {
+                  id: d.studio.value.split("#")[1].split("_")[1],
+                  NAnimes: d.NAnimes.value,
+                  nome: d.nome.value,
+                };
+              });
+          })
+          .catch((e) => {
+            console.log("Erro no get studios " + e);
+          });
         console.log(this.studios);
       })
       .catch((e) => {
@@ -73,5 +90,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

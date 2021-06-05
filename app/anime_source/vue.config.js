@@ -9,6 +9,14 @@ module.exports = {
           "^/graphdb": "",
         },
       },
+      "/serpapi": {
+        target: "https://serpapi.com",
+        secure: true,
+        changeOrigin: true,
+        pathRewrite: {
+          "^/serpapi": "",
+        },
+      },
     },
   },
 };
