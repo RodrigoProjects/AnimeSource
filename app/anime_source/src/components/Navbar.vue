@@ -21,10 +21,10 @@
             <div class="flex items-baseline space-x-4">
               <template v-for="item in navigation" :key="item">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a
-                  :href="item"
+                <router-link
+                  :to="{ name: item }"
                   class="hover:bg-yellow-400 text-lg font-mono text-white px-3 py-2 rounded-md font-black"
-                  >{{ item }}</a
+                  >{{ item }}</router-link
                 >
               </template>
             </div>
@@ -132,5 +132,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

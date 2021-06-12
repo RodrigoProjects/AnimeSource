@@ -8,9 +8,11 @@
         <div class="rounded overflow-hidden shadow-lg">
           <img class="w-full" :src="item.photo" alt="Mountain" />
           <div class="px-6 py-4">
-            <a :href="'Studios/' + item.id" class="font-bold text-xl mb-2">{{
-              item.nome
-            }}</a>
+            <router-link
+              :to="{ name: 'Studio', params: { id: item.id } }"
+              class="font-bold text-xl mb-2"
+              >{{ item.nome }}</router-link
+            >
             <p class="text-gray-700 text-base">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Voluptatibus quia, nulla! Maiores et perferendis eaque,
@@ -34,22 +36,45 @@
         </div>
       </template>
     </div>
+    <VueTailwindPagination
+      :current="currentPage"
+      :total="total"
+      :per-page="perPage"
+      @page-changed="
+        current = $event;
+        list(current);
+      "
+    />
   </div>
 </template>
 
 <script>
 var gdb = require("../utils/graphdb");
-
-const axios = require("axios");
+import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
+//const axios = require("axios");
 
 export default {
+  components: {
+    VueTailwindPagination,
+  },
   data() {
     return {
-      studios: null,
+      studios: [],
+      currentPage: 1,
+      perPage: 9,
+      title: this.studios,
+      total: null,
     };
   },
-  created: function () {
-    var query = `
+
+  created() {
+    this.list(1);
+  },
+
+  methods: {
+    list: function (currentPage) {
+      this.currentPage = currentPage;
+      var query = `
     select (count(?anime) as ?NAnimes ) ?studio ?nome  where {
         ?anime ?s :Anime;
              :hasStudio ?studio.
@@ -57,35 +82,47 @@ export default {
     } group by ?studio ?nome
       order by DESC(?NAnimes)
     `;
-    gdb
-      .fetchOntobud(query)
-      .then((response) => {
-        this.studios = response.data.results.bindings
-          .map((d) => {
-            var nome = d.nome.value.replace(" ", "+");
-            axios
-              .get(
-                "http://localhost:8080/serpapi/search.json?q=" +
-                  nome +
-                  "+studio+logo&tbm=isch&ijn=0&api_key=secret_api_key"
-              )
-              .then((dat) => {
-                console.log(dat);
-                return {
-                  id: d.studio.value.split("#")[1].split("_")[1],
-                  NAnimes: d.NAnimes.value,
-                  nome: d.nome.value,
-                };
-              });
-          })
-          .catch((e) => {
-            console.log("Erro no get studios " + e);
-          });
-        console.log(this.studios);
-      })
-      .catch((e) => {
-        console.log("Erro no get studios " + e);
-      });
+
+      gdb
+        .fetchOntobud(query)
+        .then((response) => {
+          this.total = response.data.results.bindings.length;
+
+          var i = 0;
+          while (i < 9) {
+            var d =
+              response.data.results.bindings[
+                (this.currentPage - 1) * this.perPage + i
+              ];
+
+            //var nome = d.nome.value.replace(" ", "+");
+            //axios
+            //  .get(
+            //    "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+            //      nome +
+            //      "+studio+logo"
+            //  )
+            //  .then((dat) => {
+            //    console.log(dat);
+
+            this.studios.push({
+              id: d.studio.value.split("#")[1].split("_")[1],
+              NAnimes: d.NAnimes.value,
+              nome: d.nome.value,
+            });
+            i = i + 1;
+            // });
+          }
+          console.log(this.studios);
+          //})
+          //.catch((e) => {
+          //  console.log("Erro no get studios " + e);
+          //});
+        })
+        .catch((e) => {
+          console.log("Erro no get studios " + e);
+        });
+    },
   },
 };
 </script>

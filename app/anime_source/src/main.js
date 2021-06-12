@@ -5,6 +5,4 @@ import router from "./router";
 import "@/assets/styles/tailwind.css";
 import "./assets/tailwind.css";
 
-createApp(App)
-  .use(router)
-  .mount("#app");
+createApp(App).use(router).mount("#app");

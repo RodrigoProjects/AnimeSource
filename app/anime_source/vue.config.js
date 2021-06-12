@@ -9,12 +9,12 @@ module.exports = {
           "^/graphdb": "",
         },
       },
-      "/serpapi": {
-        target: "https://serpapi.com",
-        secure: true,
+      "/googleapis": {
+        target: "https://www.googleapis.com",
+        //secure: true,
         changeOrigin: true,
         pathRewrite: {
-          "^/serpapi": "",
+          "^/googleapis": "",
         },
       },
     },

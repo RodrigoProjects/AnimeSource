@@ -10,6 +10,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.1.1",
     "@heroicons/vue": "^1.0.1",
+    "@ocrv/vue-tailwind-pagination": "0.0.4",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9",
