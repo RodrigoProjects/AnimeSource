@@ -1,7 +1,7 @@
 <template>
   <div>
     <main class="profile-page">
-      <section class="relative block" style="height: 500px;">
+      <section class="relative block" style="height: 400px;">
         <div
           class="absolute top-0 w-full h-full bg-center bg-cover"
           style="
@@ -41,18 +41,27 @@
                   <div class="relative">
                     <img
                       alt="..."
-                      src=""
-                      class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16"
-                      style="max-width: 150px;"
+                      :src="photo"
+                      class="shadow-xl rounded-xl h-auto align-middle border-none -m-16 lg:-ml-16"
+                      style="max-width: 300px;"
                     />
                   </div>
                 </div>
                 <div
-                  class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
+                  class="w-full px-4 lg:order-2 lg:text-right lg:self-center"
                 >
                   <div class="py-6 px-3 mt-32 sm:mt-0"></div>
                 </div>
-                <div class="w-full lg:w-4/12 px-4 lg:order-1">
+                <br /><br />
+                <br /><br />
+                <div class="text-center mt-12 lg:order-3">
+                  <h3
+                    class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                  >
+                    {{ studio.nome }}
+                  </h3>
+                </div>
+                <div class="w-full px-4 lg:order-3">
                   <div class="flex justify-center py-4 lg:pt-4 pt-8">
                     <div class="mr-4 p-3 text-center">
                       <span
@@ -60,28 +69,10 @@
                         >{{ total }}</span
                       ><span class="text-sm text-gray-500">Animes</span>
                     </div>
-                    <div class="mr-4 p-3 text-center">
-                      <span
-                        class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                        >10</span
-                      ><span class="text-sm text-gray-500">Rating</span>
-                    </div>
-                    <div class="lg:mr-4 p-3 text-center">
-                      <span
-                        class="text-xl font-bold block uppercase tracking-wide text-gray-700"
-                        >89</span
-                      ><span class="text-sm text-gray-500">Follows</span>
-                    </div>
                   </div>
                 </div>
               </div>
-              <div class="text-center mt-12">
-                <h3
-                  class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
-                >
-                  {{ studio.nome }}
-                </h3>
-              </div>
+
               <div class="mt-10 py-10 border-t border-gray-300 text-center">
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">
@@ -108,7 +99,7 @@
                           <!--Card 1-->
                           <div class="rounded overflow-hidden shadow-lg">
                             <img
-                              class="w-full"
+                              class="object-contain h-96 w-full"
                               :src="item.photo"
                               alt="Mountain"
                             />
@@ -135,7 +126,11 @@
                               >
                               <span
                                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                                >{{ item.status }}</span
+                                >#{{ item.status }}</span
+                              >
+                              <span
+                                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                                >#Score {{ item.score }}</span
                               >
                             </div>
                           </div>
@@ -164,6 +159,7 @@
 
 <script>
 var gdb = require("../utils/graphdb");
+var axios = require("axios");
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 export default {
   components: {
@@ -177,6 +173,7 @@ export default {
       animes: [],
       total: null,
       title: this.animes,
+      photo: null,
     };
   },
 
@@ -191,8 +188,22 @@ export default {
     `;
     gdb
       .fetchOntobud(query)
-      .then((response) => {
+      .then(async (response) => {
         this.studio = { nome: response.data.results.bindings[0].nome.value };
+        var name = this.studio.nome.replace(" ", "+");
+        const g = axios
+          .get(
+            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+              name +
+              "+studio+logo"
+          )
+          .then((dat) => {
+            this.photo = dat.data.items[0].link;
+          })
+          .catch((e) => {
+            console.log("Erro no get studios " + e);
+          });
+        await Promise.resolve(g);
       })
 
       .catch((e) => {
@@ -211,11 +222,13 @@ export default {
         `;
               :episodes ?ep;
               :title ?tit;
-              :status ?stat.
-            }`;
+              :status ?stat;
+                    :score ?pop.
+            } order by DESC(?pop)
+            `;
       gdb
         .fetchOntobud(queryA)
-        .then((respo) => {
+        .then(async (respo) => {
           this.total = respo.data.results.bindings.length;
 
           var i = 0;
@@ -225,22 +238,29 @@ export default {
                 (this.currentPage - 1) * this.perPage + i
               ];
 
-            //var nome = d.nome.value.replace(" ", "+");
-            //axios
-            //  .get(
-            //    "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
-            //      nome +
-            //      "+studio+logo"
-            //  )
-            //  .then((dat) => {
-            //    console.log(dat);
+            var nome = o.tit.value.replace(" ", "+");
+            const g = axios
+              .get(
+                "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+                  nome +
+                  "+cover"
+              )
+              .then((dat) => {
+                //console.log(dat);
 
-            this.animes.push({
-              id: o.p.value.split("#")[1].split("_")[1],
-              nome: o.tit.value,
-              status: o.stat.value,
-              eps: o.ep.value,
-            });
+                this.animes.push({
+                  id: o.p.value.split("#")[1].split("_")[1],
+                  nome: o.tit.value,
+                  status: o.stat.value,
+                  eps: o.ep.value,
+                  photo: dat.data.items[0].link,
+                  score: o.pop.value,
+                });
+              })
+              .catch((e) => {
+                console.log("Erro no get animes " + e);
+              });
+            await Promise.resolve(g);
             i = i + 1;
           }
         })
