@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main class="profile-page">
+    <main class="profile-page" style="weight: 80%;">
       <section class="relative block" style="height: 400px;">
         <div
           class="absolute top-0 w-full h-full bg-center bg-cover"
@@ -53,7 +53,6 @@
                   <div class="py-6 px-3 mt-32 sm:mt-0"></div>
                 </div>
                 <br /><br />
-                <br /><br />
                 <div class="text-center mt-12 lg:order-3">
                   <h3
                     class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
@@ -93,7 +92,7 @@
 
                     <div>
                       <div
-                        class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+                        class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5"
                       >
                         <template v-for="item in animes" :key="item">
                           <!--Card 1-->
@@ -160,7 +159,7 @@
 <script>
 var gdb = require("../utils/graphdb");
 var axios = require("axios");
-import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
+import VueTailwindPagination from "../components/Pagination.vue";
 export default {
   components: {
     VueTailwindPagination,
@@ -214,6 +213,7 @@ export default {
 
   methods: {
     list: function (currentPage) {
+      this.animes = [];
       this.currentPage = currentPage;
       var queryA =
         `select * where {

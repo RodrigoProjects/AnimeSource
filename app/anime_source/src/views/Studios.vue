@@ -89,7 +89,7 @@
 
 <script>
 var gdb = require("../utils/graphdb");
-import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
+import VueTailwindPagination from "../components/Pagination.vue";
 const axios = require("axios");
 
 export default {
@@ -112,6 +112,7 @@ export default {
 
   methods: {
     list: function (currentPage) {
+      this.studios = [];
       this.currentPage = currentPage;
       var query = `
     select (count(?anime) as ?NAnimes ) ?studio ?nome  where {
