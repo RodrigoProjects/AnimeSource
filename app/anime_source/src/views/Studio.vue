@@ -201,6 +201,8 @@ export default {
           })
           .catch((e) => {
             console.log("Erro no get studios " + e);
+            this.photo =
+              "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
           });
         await Promise.resolve(g);
       })
@@ -243,7 +245,7 @@ export default {
               .get(
                 "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
-                  "+cover"
+                  "+anime+cover"
               )
               .then((dat) => {
                 //console.log(dat);
@@ -258,7 +260,16 @@ export default {
                 });
               })
               .catch((e) => {
-                console.log("Erro no get animes " + e);
+                console.log("Erro no get animes 2" + e);
+                this.animes.push({
+                  id: o.p.value.split("#")[1].split("_")[1],
+                  nome: o.tit.value,
+                  status: o.stat.value,
+                  eps: o.ep.value,
+                  photo:
+                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
+                  score: o.pop.value,
+                });
               });
             await Promise.resolve(g);
             i = i + 1;

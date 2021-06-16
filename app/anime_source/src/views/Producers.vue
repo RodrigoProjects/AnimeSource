@@ -47,7 +47,7 @@
             />
             <div class="px-6 py-4">
               <router-link
-                :to="{ name: 'Studio', params: { id: item.id } }"
+                :to="{ name: 'Producer', params: { id: item.id } }"
                 class="font-bold text-xl mb-2"
                 >{{ item.nome }}</router-link
               >
@@ -123,6 +123,7 @@ export default {
       gdb
         .fetchOntobud(query)
         .then(async (response) => {
+          console.log("response::: " + JSON.stringify(response));
           this.total = response.data.results.bindings.length;
 
           var i = 0;
@@ -140,6 +141,8 @@ export default {
                   "+producer+logo"
               )
               .then((dat) => {
+                console.log("dat____:" + dat);
+                console.log(d.producer.value.split("#")[1].split("_")[1]);
                 this.producers.push({
                   id: d.producer.value.split("#")[1].split("_")[1],
                   NAnimes: d.NAnimes.value,
@@ -149,6 +152,15 @@ export default {
               })
               .catch((e) => {
                 console.log("Erro no get studios " + e);
+                console.log(d);
+                console.log(d.producer.value.split("#")[1].split("_")[1]);
+                this.producers.push({
+                  id: d.producer.value.split("#")[1].split("_")[1],
+                  NAnimes: d.NAnimes.value,
+                  nome: d.nome.value,
+                  photo:
+                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
+                });
               });
             await Promise.resolve(p);
             i = i + 1;

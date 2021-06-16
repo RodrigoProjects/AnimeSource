@@ -153,6 +153,13 @@ export default {
               })
               .catch((e) => {
                 console.log("Erro no get studios " + e);
+                this.studios.push({
+                  id: d.studio.value.split("#")[1].split("_")[1],
+                  NAnimes: d.NAnimes.value,
+                  nome: d.nome.value,
+                  photo:
+                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
+                });
               });
             await Promise.resolve(p);
             i = i + 1;
