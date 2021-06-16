@@ -121,7 +121,7 @@ def toTTL(r):
                         idLicense += 1
                         out.write(f'###  http://www.semanticweb.org/rodrigop/ontologies/2021/33/animes#{licensors[x]}\n')
                         out.write(f':{licensors[x]} rdf:type owl:NamedIndividual ,\n')
-                        out.write(f'\t\t\t\t:Genre ;\n')
+                        out.write(f'\t\t\t\t:License ;\n')
                         out.write(f'\t\t\t:name \"{x}\" .\n\n')
                 
             if 'producer' in obj:
