@@ -76,11 +76,7 @@
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">
                     <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                      An artist of considerable range, Jenna the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                      performs and records all of his own music, giving it a
-                      warm, intimate feel with a solid groove structure. An
-                      artist of considerable range.
+                      {{ snip }}
                     </p>
                     <hr />
                     <br />
@@ -112,10 +108,7 @@
                                 >{{ item.nome }}</router-link
                               >
                               <p class="text-gray-700 text-base">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Voluptatibus quia, nulla!
-                                Maiores et perferendis eaque, exercitationem
-                                praesentium nihil.
+                                {{ item.snip }}
                               </p>
                             </div>
                             <div class="px-6 pt-4 pb-2">
@@ -173,6 +166,7 @@ export default {
       total: null,
       title: this.animes,
       photo: null,
+      snip: null,
     };
   },
 
@@ -192,17 +186,35 @@ export default {
         var name = this.studio.nome.replace(" ", "+");
         const g = axios
           .get(
-            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&q=" +
               name +
-              "+studio+logo"
+              "+studio",
+            {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            }
           )
-          .then((dat) => {
-            this.photo = dat.data.items[0].link;
+          .then(async (dat) => {
+            const g = axios
+              .get(
+                "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+                  name +
+                  "+studio+logo"
+              )
+              .then((dat2) => {
+                this.photo = dat2.data.items[0].link;
+                this.snip = dat.data.items[0].snippet;
+              })
+              .catch((e) => {
+                console.log("Erro no get studios " + e);
+                this.photo =
+                  "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+              });
+            await Promise.resolve(g);
           })
           .catch((e) => {
-            console.log("Erro no get studios " + e);
-            this.photo =
-              "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+            console.log(e);
+            this.snip = "unavailable";
           });
         await Promise.resolve(g);
       })
@@ -245,17 +257,16 @@ export default {
               .get(
                 "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
-                  "+anime+cover"
+                  "+cover"
               )
               .then((dat) => {
-                //console.log(dat);
-
                 this.animes.push({
                   id: o.p.value.split("#")[1].split("_")[1],
                   nome: o.tit.value,
                   status: o.stat.value,
                   eps: o.ep.value,
                   photo: dat.data.items[0].link,
+                  snip: dat.data.items[0].snippet,
                   score: o.pop.value,
                 });
               })
@@ -266,6 +277,7 @@ export default {
                   nome: o.tit.value,
                   status: o.stat.value,
                   eps: o.ep.value,
+                  snip: "non available",
                   photo:
                     "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
                   score: o.pop.value,

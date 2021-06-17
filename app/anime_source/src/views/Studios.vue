@@ -52,9 +52,7 @@
                 >{{ item.nome }}</router-link
               >
               <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                exercitationem praesentium nihil.
+                {{ item.snip }}
               </p>
             </div>
             <div class="px-6 pt-4 pb-2">
