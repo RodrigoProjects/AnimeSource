@@ -76,11 +76,7 @@
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">
                     <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                      An artist of considerable range, Jenna the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                      performs and records all of his own music, giving it a
-                      warm, intimate feel with a solid groove structure. An
-                      artist of considerable range.
+                      {{ snip }}
                     </p>
                     <hr />
                     <br />
@@ -112,10 +108,7 @@
                                 >{{ item.nome }}</router-link
                               >
                               <p class="text-gray-700 text-base">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Voluptatibus quia, nulla!
-                                Maiores et perferendis eaque, exercitationem
-                                praesentium nihil.
+                                {{ item.background }}
                               </p>
                             </div>
                             <div class="px-6 pt-4 pb-2">
@@ -192,23 +185,41 @@ export default {
         var name = this.producer.nome.replace(" ", "+");
         const g = axios
           .get(
-            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+            "https://www.googleapis.com/customsearch/v1?key=AIzaSyBltqVBmyFOfrpwImtWOwMmmHgILiwZVs4&cx=b4564266b17feb682&searchType=image&q=" +
               name +
-              "+logo"
+              "+producer",
+            {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            }
           )
-          .then((dat) => {
-            this.photo = dat.data.items[0].link;
+          .then(async (dat) => {
+            const g = axios
+              .get(
+                "https://www.googleapis.com/customsearch/v1?key=AIzaSyBltqVBmyFOfrpwImtWOwMmmHgILiwZVs4&cx=b4564266b17feb682&searchType=image&q=" +
+                  name +
+                  "+producer+logo"
+              )
+              .then((dat2) => {
+                this.photo = dat2.data.items[0].link;
+                this.snip = dat.data.items[0].snippet;
+              })
+              .catch((e) => {
+                console.log("Erro no get studios " + e);
+                this.photo =
+                  "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+              });
+            await Promise.resolve(g);
           })
           .catch((e) => {
-            console.log("Erro no get producer " + e);
-            this.photo =
-              "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+            console.log(e);
+            this.snip = "unavailable";
           });
         await Promise.resolve(g);
       })
 
       .catch((e) => {
-        console.log("Erro no get producer " + e);
+        console.log("Erro no get studios " + e);
       });
     this.list(1);
   },
@@ -222,8 +233,9 @@ export default {
         ?p ?d :producer_` +
         this.$route.params.id +
         `;
-     :episodes ?ep;
+              :episodes ?ep;
               :title ?tit;
+              :background ?back;
               :status ?stat;
                     :score ?pop.
             } order by DESC(?pop)
@@ -241,37 +253,30 @@ export default {
               ];
 
             var nome = o.tit.value.replace(" ", "+");
+            var pic = "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg"
             const g = axios
               .get(
-                "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+                "https://www.googleapis.com/customsearch/v1?key=AIzaSyBltqVBmyFOfrpwImtWOwMmmHgILiwZVs4&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
-                  "+anime+cover"
+                  "+cover"
               )
               .then((dat) => {
-                //console.log(dat);
-
-                this.animes.push({
-                  id: o.p.value.split("#")[1].split("_")[1],
-                  nome: o.tit.value,
-                  status: o.stat.value,
-                  eps: o.ep.value,
-                  photo: dat.data.items[0].link,
-                  score: o.pop.value,
-                });
+                pic =  dat.data.items[0].link
               })
               .catch((e) => {
-                console.log("Erro no get animes 2 " + e);
-                this.animes.push({
+                console.log("Erro no get animes " + e);
+              });
+              
+            await Promise.resolve(g);
+            this.animes.push({
                   id: o.p.value.split("#")[1].split("_")[1],
                   nome: o.tit.value,
                   status: o.stat.value,
+                  background: o.back.value,
                   eps: o.ep.value,
-                  photo:
-                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
+                  photo: pic,
                   score: o.pop.value,
                 });
-              });
-            await Promise.resolve(g);
             i = i + 1;
           }
         })

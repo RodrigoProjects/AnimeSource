@@ -136,7 +136,7 @@ export default {
             var nome = d.nome.value.replace(" ", "+");
             const p = axios
               .get(
-                "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+                "https://www.googleapis.com/customsearch/v1?key=AIzaSyBltqVBmyFOfrpwImtWOwMmmHgILiwZVs4&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
                   "+studio+logo"
               )

@@ -186,7 +186,7 @@ export default {
         var name = this.studio.nome.replace(" ", "+");
         const g = axios
           .get(
-            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+            "https://www.googleapis.com/customsearch/v1?key=AIzaSyBltqVBmyFOfrpwImtWOwMmmHgILiwZVs4&cx=b4564266b17feb682&searchType=image&q=" +
               name +
               "+studio",
             {
@@ -197,7 +197,7 @@ export default {
           .then(async (dat) => {
             const g = axios
               .get(
-                "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+                "https://www.googleapis.com/customsearch/v1?key=AIzaSyBltqVBmyFOfrpwImtWOwMmmHgILiwZVs4&cx=b4564266b17feb682&searchType=image&q=" +
                   name +
                   "+studio+logo"
               )
@@ -257,7 +257,7 @@ export default {
             var pic = "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg"
             const g = axios
               .get(
-                "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+                "https://www.googleapis.com/customsearch/v1?key=AIzaSyBltqVBmyFOfrpwImtWOwMmmHgILiwZVs4&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
                   "+cover"
               )
