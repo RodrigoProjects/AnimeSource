@@ -104,4 +104,3 @@ dist
 .tern-port
 
 node_modules/
-app/anime_source/package-lock.json

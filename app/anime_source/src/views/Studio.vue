@@ -108,7 +108,7 @@
                                 >{{ item.nome }}</router-link
                               >
                               <p class="text-gray-700 text-base">
-                                {{ item.background }}
+                                {{ item.snip }}
                               </p>
                             </div>
                             <div class="px-6 pt-4 pb-2">
@@ -186,7 +186,7 @@ export default {
         var name = this.studio.nome.replace(" ", "+");
         const g = axios
           .get(
-            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&q=" +
               name +
               "+studio",
             {
@@ -236,7 +236,6 @@ export default {
         `;
               :episodes ?ep;
               :title ?tit;
-              :background ?back;
               :status ?stat;
                     :score ?pop.
             } order by DESC(?pop)
@@ -254,7 +253,6 @@ export default {
               ];
 
             var nome = o.tit.value.replace(" ", "+");
-            var pic = "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg"
             const g = axios
               .get(
                 "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
@@ -262,22 +260,30 @@ export default {
                   "+cover"
               )
               .then((dat) => {
-                pic =  dat.data.items[0].link
-              })
-              .catch((e) => {
-                console.log("Erro no get animes " + e);
-              });
-              
-            await Promise.resolve(g);
-            this.animes.push({
+                this.animes.push({
                   id: o.p.value.split("#")[1].split("_")[1],
                   nome: o.tit.value,
                   status: o.stat.value,
-                  background: o.back.value,
                   eps: o.ep.value,
-                  photo: pic,
+                  photo: dat.data.items[0].link,
+                  snip: dat.data.items[0].snippet,
                   score: o.pop.value,
                 });
+              })
+              .catch((e) => {
+                console.log("Erro no get animes 2" + e);
+                this.animes.push({
+                  id: o.p.value.split("#")[1].split("_")[1],
+                  nome: o.tit.value,
+                  status: o.stat.value,
+                  eps: o.ep.value,
+                  snip: "non available",
+                  photo:
+                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
+                  score: o.pop.value,
+                });
+              });
+            await Promise.resolve(g);
             i = i + 1;
           }
         })
