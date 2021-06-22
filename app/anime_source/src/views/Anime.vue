@@ -112,10 +112,13 @@
                 >
                   {{ anime.type }}
                 </h5>
+
                 <div class="mb-2 text-gray-700 mt-10">
-                  <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i
-                  >Solution Manager - Creative Tim Officer
+                  <a v-for="item in anime.genre" :key="item">
+                    {{ item }}&nbsp;
+                  </a>
                 </div>
+
                 <div class="mb-2 text-gray-700">
                   <i class="fas fa-university mr-2 text-lg text-gray-500"></i
                   >University of Computer Science
@@ -213,21 +216,23 @@ export default {
                ?p :name ?o.
 }`;
 
-        gdb
+        const r = gdb
           .fetchOntobud(query2)
           .then(async (ri) => {
+            console.log("query dois");
             var gens = [];
-            ri.results.bindings.map((u) => {
+            ri.data.results.bindings.map((u) => {
               gens.push(u.o.value);
             });
             this.anime["genre"] = gens;
+            console.log(this.anime);
           })
           .catch((e) => console.log(e));
+        await Promise.all(r);
       })
       .catch((e) => {
         console.log("Erro no get producer " + e);
       });
-    console.log(this.animes);
   },
 };
 </script>
