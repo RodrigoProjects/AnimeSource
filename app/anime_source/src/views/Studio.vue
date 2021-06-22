@@ -28,10 +28,10 @@
           </svg>
         </div>
       </section>
-      <section class="relative py-16 bg-gray-300">
+      <section class="relative py-16">
         <div class="container mx-auto px-4">
           <div
-            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64"
+            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-lg -mt-64"
           >
             <div class="px-6">
               <div class="flex flex-wrap justify-center">
@@ -254,7 +254,8 @@ export default {
               ];
 
             var nome = o.tit.value.replace(" ", "+");
-            var pic = "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg"
+            var pic =
+              "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
             const g = axios
               .get(
                 "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
@@ -262,22 +263,22 @@ export default {
                   "+cover"
               )
               .then((dat) => {
-                pic =  dat.data.items[0].link
+                pic = dat.data.items[0].link;
               })
               .catch((e) => {
                 console.log("Erro no get animes " + e);
               });
-              
+
             await Promise.resolve(g);
             this.animes.push({
-                  id: o.p.value.split("#")[1].split("_")[1],
-                  nome: o.tit.value,
-                  status: o.stat.value,
-                  background: o.back.value,
-                  eps: o.ep.value,
-                  photo: pic,
-                  score: o.pop.value,
-                });
+              id: o.p.value.split("#")[1].split("_")[1],
+              nome: o.tit.value,
+              status: o.stat.value,
+              background: o.back.value,
+              eps: o.ep.value,
+              photo: pic,
+              score: o.pop.value,
+            });
             i = i + 1;
           }
         })
