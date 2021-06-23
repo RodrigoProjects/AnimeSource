@@ -1,38 +1,6 @@
 <template>
   <main class="profile-page">
-    <section class="relative block h-64">
-      <div
-        class="absolute top-0 w-full h-64 bg-center bg-cover"
-        style="
-          background-image: url('https://wallpapercave.com/wp/wp4712029.jpg?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1710&amp;q=40');
-          opacity: 80%;
-        "
-      >
-        <br /><br />
-        <div class="font-bold text-8xl mb-2 text-yellow-300 text-center">
-          Producers
-        </div>
-      </div>
-      <div
-        class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-        style="height: 70px;"
-      >
-        <svg
-          class="absolute bottom-0 overflow-hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-          version="1.1"
-          viewBox="0 0 2560 100"
-          x="0"
-          y="0"
-        >
-          <polygon
-            class="text-white fill-current"
-            points="2560 0 2560 100 0 100"
-          ></polygon>
-        </svg>
-      </div>
-    </section>
+    <Headerings :photo="header" :tipe="tipe" />
     <div>
       <div
         class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5"
@@ -89,10 +57,12 @@
 
 <script>
 var axios = require("axios");
+import Headerings from "../components/Headerings.vue";
 import VueTailwindPagination from "../components/Pagination.vue";
 var gdb = require("../utils/graphdb");
 export default {
   components: {
+    Headerings: Headerings,
     VueTailwindPagination,
   },
   data() {
@@ -100,6 +70,8 @@ export default {
       producers: null,
       currentPage: 1,
       perPage: 3,
+      header: "https://wallpapercave.com/wp/wp4712029.jpg",
+      tipe: "Producers",
       title: this.producers,
       total: null,
     };
