@@ -119,9 +119,8 @@
                   </a>
                 </div>
 
-                <div class="mb-2 text-gray-700">
-                  <i class="fas fa-university mr-2 text-lg text-gray-500"></i
-                  >University of Computer Science
+                <div class="mb-2 text-gray-500">
+                  {{ anime.rating }}
                 </div>
               </div>
 
@@ -196,7 +195,7 @@ export default {
           .get(
             "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
               name +
-              "+cover"
+              "+anime+cover"
           )
           .then((dat) => {
             this.photo = dat.data.items[0].link;
