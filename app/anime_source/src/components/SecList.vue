@@ -73,6 +73,10 @@ export default {
   components: {
     VueTailwindPagination,
   },
+  props: {
+    tipe: String,
+    id: String,
+  },
   data() {
     return {
       currentPage: 1,
@@ -92,8 +96,10 @@ export default {
       this.currentPage = currentPage;
       var queryA =
         `select * where {
-                ?p ?d :studio_` +
-        this.$route.params.id +
+                ?p ?d :` +
+        this.tipe +
+        `_` +
+        this.id +
         `;
               :episodes ?ep;
               :title ?tit;

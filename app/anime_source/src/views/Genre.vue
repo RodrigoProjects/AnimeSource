@@ -5,7 +5,7 @@
         <div
           class="absolute top-0 w-full h-full bg-center bg-cover"
           style="
-            background-image: url('https://images8.alphacoders.com/886/886211.jpg?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');
+            background-image: url('https://i.redd.it/de38p8tsp2t21.png?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');
           "
         ></div>
         <div
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      tipe: "producer",
+      tipe: "genre",
     };
   },
 };

@@ -43,6 +43,5 @@ export default {
     photo: String,
     tipe: String,
   },
-  mounted() {},
 };
 </script>

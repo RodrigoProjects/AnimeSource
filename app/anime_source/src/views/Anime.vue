@@ -114,8 +114,12 @@
                 </h5>
 
                 <div class="mb-2 text-gray-700 mt-10">
-                  <a v-for="item in anime.genre" :key="item">
-                    {{ item }}&nbsp;
+                  <a
+                    v-for="item in anime.genre"
+                    :key="item.id"
+                    :href="'/genre/' + item.id"
+                  >
+                    {{ item.value }}&nbsp;
                   </a>
                 </div>
 
@@ -220,8 +224,12 @@ export default {
           .then(async (ri) => {
             console.log("query dois");
             var gens = [];
+            var pi = {};
             ri.data.results.bindings.map((u) => {
-              gens.push(u.o.value);
+              pi = {};
+              pi["id"] = u.p.value.split("#")[1].split("_")[1];
+              pi["value"] = u.o.value;
+              gens.push(pi);
             });
             this.anime["genre"] = gens;
             console.log(this.anime);

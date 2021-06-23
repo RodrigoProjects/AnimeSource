@@ -33,7 +33,9 @@
                   <span
                     class="text-xl font-bold block uppercase tracking-wide text-gray-700"
                     >{{ total }}</span
-                  ><span class="text-sm text-gray-500">Animes</span>
+                  ><span class="text-sm text-gray-500">{{
+                    tipe.toUpperCase()
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -43,15 +45,11 @@
             <div class="flex flex-wrap justify-center">
               <div class="w-full lg:w-9/12 px-4">
                 <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                  An artist of considerable range, Jenna the name taken by
-                  Melbourne-raised, Brooklyn-based Nick Murphy writes, performs
-                  and records all of his own music, giving it a warm, intimate
-                  feel with a solid groove structure. An artist of considerable
-                  range.
+                  {{ snip }}
                 </p>
                 <hr />
                 <br />
-                <Sec-list :id="this.$route.params.id" />
+                <Sec-list :tipe="tipe" :id="id" />
               </div>
             </div>
           </div>
@@ -66,13 +64,18 @@ var gdb = require("../utils/graphdb");
 var axios = require("axios");
 import SecList from "../components/SecList.vue";
 export default {
+  props: {
+    tipe: String,
+    id: String,
+  },
   components: {
     SecList: SecList,
   },
   data() {
     return {
       producer: [],
-      photo: null,
+      photo: "",
+      snip: "",
     };
   },
 
@@ -81,12 +84,13 @@ export default {
       `
     select ?nome where {
         :` +
-      this.$route.params.type +
+      this.tipe +
       `_` +
-      this.$route.params.id +
+      this.id +
       ` :name ?nome.
     }
     `;
+    console.log("query: " + query);
     gdb
       .fetchOntobud(query)
       .then(async (response) => {
@@ -97,7 +101,7 @@ export default {
             "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
               name +
               "+" +
-              this.$route.params.type +
+              this.tipe +
               "+logo",
             {
               "Content-Type": "application/json",
@@ -116,7 +120,8 @@ export default {
                 this.snip = dat.data.items[0].snippet;
               })
               .catch((e) => {
-                console.log("Erro no get studios " + e);
+                this.snip = "Unavailable";
+                console.log("Erro no get thinger " + e);
                 this.photo =
                   "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
               });
@@ -125,11 +130,17 @@ export default {
           .catch((e) => {
             console.log(e);
             this.snip = "Unavailable";
+            this.photo =
+              "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
           });
         await Promise.resolve(g);
       })
 
       .catch((e) => {
+        this.snip = "Unavailable";
+        this.photo =
+          "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+
         console.log("Erro no get studios " + e);
       });
   },

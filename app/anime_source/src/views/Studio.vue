@@ -28,7 +28,7 @@
           </svg>
         </div>
       </section>
-      <ProfilesOther type="studio" :id="this.$route.params.id" />
+      <ProfilesOther :tipe="tipe" :id="id" />
     </main>
   </div>
 </template>
@@ -38,6 +38,12 @@ import ProfilesOther from "../components/ProfilesOther.vue";
 export default {
   components: {
     ProfilesOther: ProfilesOther,
+  },
+  data() {
+    return {
+      id: this.$route.params.id,
+      tipe: "studio",
+    };
   },
 };
 </script>
