@@ -6,21 +6,22 @@
       >
         <div class="px-6">
           <div class="flex flex-wrap justify-center">
-            <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+            <div class="w-full lg:w-4/12 px-4 lg:order-2 flex justify-center">
               <div class="relative">
                 <img
                   alt="..."
                   :src="photo"
                   class="shadow-xl rounded-xl h-auto align-middle border-none -m-16 lg:-ml-16"
-                  style="max-width: 170px;"
+                  style="max-width: 200px;"
                 />
               </div>
             </div>
 
-            <div
-              class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
-            >
-              <div class="flex justify-center py-4 lg:pt-4 pt-8">
+            <div class="w-full lg:w-4/12 px-4 lg:order-3">
+              <br class="lg:hidden md:block" />
+              <br class="lg:hidden md:block" />
+
+              <div class="flex justify-center py-4 lg:pt-3 pt-8 md:pl-6 pl-6">
                 <div class="mr-4 p-3 text-center">
                   <span
                     class="text-xl font-bold block uppercase tracking-wide text-gray-700"
@@ -41,8 +42,8 @@
                 </div>
               </div>
             </div>
-            <div class="w-full lg:w-4/12 px-4 lg:order-1">
-              <div class="flex justify-center py-4 lg:pt-4 pt-8">
+            <div class="w-full lg:w-4/12 px-4 lg:order-1 md:pl-1 pl-1">
+              <div class="flex justify-center lg:pt-3">
                 <div class="mr-4 p-3 text-center">
                   <span
                     class="text-xl font-bold block uppercase tracking-wide text-gray-700"
@@ -64,8 +65,7 @@
               </div>
             </div>
           </div>
-          <br /><br />
-          <div class="text-center mt-12">
+          <div class="text-center lg:pt-9 lg:mt-12">
             <h3
               class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
             >
@@ -110,7 +110,7 @@
                 </p>
               </div>
             </div>
-            <div class="mt-10 py-10 border-t border-gray-300 text-center">
+            <div class="border-t border-gray-300 text-center">
               <AddInfos :id="d" />
             </div>
           </div>
@@ -173,7 +173,7 @@ export default {
         var name = this.anime.title.replace(" ", "+");
         const g = axios
           .get(
-            "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+            "https://www.googleapis.com/customsearch/v1?key=AIzaSyBldoieByYvmvhEMXFemem7O65urWVoRlI&cx=b4564266b17feb682&searchType=image&q=" +
               name +
               "+anime+cover"
           )
