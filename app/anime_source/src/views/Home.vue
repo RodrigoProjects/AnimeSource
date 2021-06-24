@@ -1,16 +1,24 @@
 <template>
   <div class="">
     <Quote />
+
+    <Lister :tipe="tipe" />
   </div>
 </template>
 
 <script>
-import Quote from "@/components/Quote"
-
+import Quote from "@/components/Quote";
+import Lister from "../components/Listing.vue";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    Quote
-  }
-}
+    Quote,
+    Lister,
+  },
+  data() {
+    return {
+      tipe: "Anime",
+    };
+  },
+};
 </script>
