@@ -18,21 +18,24 @@
               >{{ item.nome }}</router-link
             >
             <p class="text-gray-700 text-base">
+              {{ item.type }}
+            </p>
+            <p class="text-gray-700 text-xs">
               {{ item.status }}
             </p>
           </div>
           <div class="px-6 pt-4 pb-2">
             <span
               class="inline-block bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#photography</span
+              >{{ item.NAnimes }}</span
             >
             <span
               class="inline-block bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#travel</span
+              >{{ item.favs }}</span
             >
             <span
               class="inline-block bg-yellow-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#winter</span
+              >{{ item.tag }}</span
             >
           </div>
         </div>
@@ -87,6 +90,8 @@ export default {
     :title ?name;
     :episodes ?e;
     :status ?sd;
+    :favorites ?f;
+    :premiered ?pr;
     :type ?t;
     }   order by DESC(?i)`;
       } else {
@@ -136,40 +141,49 @@ export default {
                 if (this.tipe == "Anime") {
                   this.producers.push({
                     id: d.anime.value.split("#")[1].split("_")[1],
-                    NAnimes: d.e.value,
+                    NAnimes: d.e.value + " Episodes",
                     nome: d.name.value,
                     photo: dat.data.items[0].link,
                     status: d.sd.value,
+                    type: d.t.value,
+                    favs: d.f.value + " 💛",
+                    tag: d.pr.value,
                   });
                 } else {
                   this.producers.push({
                     id: d.producer.value.split("#")[1].split("_")[1],
-                    NAnimes: d.NAnimes.value,
+                    NAnimes: d.NAnimes.value + " Animes",
                     nome: d.nome.value,
                     photo: dat.data.items[0].link,
                     status: "",
+                    type: "",
+                    favs: " 📝 ",
+                    tag: " 🏢 ",
                   });
                 }
               })
               .catch(() => {
-                //console.log("Erro no get studios " + e);
-
                 if (this.tipe == "Anime") {
                   this.producers.push({
                     id: d.anime.value.split("#")[1].split("_")[1],
-                    NAnimes: d.e.value,
+                    NAnimes: d.e.value + " Episodes",
                     nome: d.name.value,
                     photo:
                       "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
                     status: d.sd.value,
+                    type: d.t.value,
+                    favs: d.f.value + " 💛",
+                    tag: d.pr.value,
                   });
                 } else {
-                  //console.log(d.producer.value.split("#")[1].split("_")[1]);
                   this.producers.push({
                     id: d.producer.value.split("#")[1].split("_")[1],
-                    NAnimes: d.NAnimes.value,
+                    NAnimes: d.NAnimes.value + " Animes",
                     nome: d.nome.value,
                     status: "",
+                    type: "",
+                    favs: " 📝 ",
+                    tag: " 🏢 ",
                     photo:
                       "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg",
                   });
