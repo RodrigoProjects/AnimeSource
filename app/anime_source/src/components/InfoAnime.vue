@@ -110,6 +110,7 @@
                 </p>
               </div>
             </div>
+            <br />
             <div class="border-t border-gray-300 text-center">
               <AddInfos :id="d" />
             </div>
