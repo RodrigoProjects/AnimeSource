@@ -13,6 +13,7 @@ const routes = [
   {
     path: "/anime/:id",
     name: "Anime",
+
     component: () => import("@/views/Anime.vue"),
   },
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/Producers",
     name: "Producers",
     component: () => import("@/views/Producers.vue"),
+  },
+  {
+    path: "/search/:id",
+    name: "Search",
+    component: () => import("@/views/Results.vue"),
   },
   {
     path: "/Producers/:id",

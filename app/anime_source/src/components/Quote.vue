@@ -3,8 +3,8 @@
     <div
       class="absolute top-0 w-full h-full bg-center bg-cover"
       style="
-        background-image: url('https://wallpaperaccess.com/full/39033.png?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');
-        opacity: 40%;
+        background-image: url('https://manganimy.github.io/TOC/img/20_0607.jpg?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');
+        opacity: 30%;
       "
     ></div>
 

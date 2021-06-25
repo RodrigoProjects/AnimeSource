@@ -1,7 +1,6 @@
 <template>
   <div class="">
     <Quote />
-
     <Lister :tipe="tipe" />
   </div>
 </template>

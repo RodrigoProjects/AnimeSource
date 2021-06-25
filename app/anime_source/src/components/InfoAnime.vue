@@ -176,10 +176,10 @@ export default {
           .get(
             "https://www.googleapis.com/customsearch/v1?key=AIzaSyBldoieByYvmvhEMXFemem7O65urWVoRlI&cx=b4564266b17feb682&searchType=image&q=" +
               name +
-              "+anime+cover"
+              "+cover"
           )
           .then((dat) => {
-            this.photo = dat.data.items[0].link;
+            this.photo = dat.data.items[1].link;
           })
           .catch((e) => {
             console.log("Erro no get anime photo " + e);

@@ -5,19 +5,34 @@
     >
       Search your favorite anime here!
     </span>
-    <input
-      type="text"
-      name="anime"
-      id="price"
-      class="focus:ring-yellow-700 focus:border-yellow-600 pl-2 pr-2 sm:text-sm border-yellow-500 xl:w-120 md:w-96 rounded-md w-11/12 mb-3"
-      placeholder="Search here..."
-    />
+    <div class="flex">
+      <input
+        type="text"
+        name="anime"
+        v-model.number="input"
+        id="anime2"
+        class="focus:ring-yellow-700 flex focus:border-yellow-600 pl-2 pr-2 sm:text-sm border-yellow-500 xl:w-120 md:w-96 lg:hidden rounded-md"
+        placeholder="Search here..."
+      />
+      <button
+        :href="'/search/' + input"
+        class="bg-yellow-200 w-auto rounded-md lg:hidden flex left-8 items-center text-yellow-900 p-2 hover:text-yellows-400"
+      >
+        Search
+      </button>
+    </div>
+    <br />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      input: "",
+    };
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

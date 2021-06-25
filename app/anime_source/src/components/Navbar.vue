@@ -8,15 +8,23 @@
           >
             <router-link to="/">AnimeSource</router-link>
           </div>
-          <div>
+          <div class="flex">
             <input
               type="text"
-              name="anime"
-              id="anime"
-              class="focus:ring-yellow-700 focus:border-yellow-600 pl-2 pr-2 sm:text-sm border-yellow-500 xl:w-120 md:w-96 lg:block hidden rounded-md"
+              v-model="input"
+              id="anime1"
+              class="focus:ring-yellow-700 hidden focus:border-yellow-600 ml-28 sm:text-sm border-yellow-500 xl:w-120 lg:w-96 md:w-80 lg:block rounded-md"
               placeholder="Search here..."
             />
+
+            <a
+              :href="'/search/' + input"
+              class="bg-yellow-200 w-auto rounded-md lg:block hidden left-8 items-center text-yellow-900 p-2 hover:text-yellows-400"
+            >
+              Search
+            </a>
           </div>
+          <div></div>
           <div class="hidden md:block">
             <div class="flex items-baseline space-x-4">
               <template v-for="item in navigation" :key="item">
@@ -76,7 +84,6 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { MenuIcon, XIcon } from "@heroicons/vue/outline";
 
 const navigation = ["Studios", "Producers"];
-const profile = ["Your Profile", "Settings", "Sign out"];
 
 export default {
   components: {
@@ -91,8 +98,12 @@ export default {
 
     return {
       navigation,
-      profile,
       open,
+    };
+  },
+  data() {
+    return {
+      input: "",
     };
   },
 };

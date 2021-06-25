@@ -63,6 +63,7 @@ export default {
   },
   props: {
     tipe: String,
+    result: String,
   },
   data() {
     return {
@@ -94,6 +95,21 @@ export default {
     :premiered ?pr;
     :type ?t;
     }   order by DESC(?i)`;
+      } else if (this.tipe == "Search") {
+        query =
+          `select * where { 
+	?anime ?p :Anime ;
+    :favorites ?i;
+    :episodes ?e;
+    :status ?sd;
+    :favorites ?f;
+    :premiered ?pr;
+    :type ?t;
+    :title ?name.
+    FILTER regex(str(?name), "` +
+          this.result +
+          `")
+} order by DESC(?i)`;
       } else {
         query =
           `
@@ -107,6 +123,7 @@ export default {
       order by DESC(?NAnimes)
     `;
       }
+      console.log(query);
       gdb
         .fetchOntobud(query)
         .then(async (response) => {
@@ -121,29 +138,33 @@ export default {
               ];
             var nome = "";
             var amostra = "";
-            if (this.tipe == "Anime") {
+            var coiso = "";
+            var se = "";
+            if (this.tipe == "Anime" || this.tipe == "Search") {
               nome = d.name.value.replace(" ", "+");
               amostra = "cover";
+              coiso = "" + amostra;
+              se = 1;
             } else {
               nome = d.nome.value.replace(" ", "+");
               amostra = "logo";
+              coiso = this.tipe + "+" + amostra;
+              se = 0;
             }
             const p = axios
               .get(
                 "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
                   "+" +
-                  this.tipe +
-                  "+" +
-                  amostra
+                  coiso
               )
               .then((dat) => {
-                if (this.tipe == "Anime") {
+                if (this.tipe == "Anime" || this.tipe == "Search") {
                   this.producers.push({
                     id: d.anime.value.split("#")[1].split("_")[1],
                     NAnimes: d.e.value + " Episodes",
                     nome: d.name.value,
-                    photo: dat.data.items[0].link,
+                    photo: dat.data.items[se].link,
                     status: d.sd.value,
                     type: d.t.value,
                     favs: d.f.value + " 💛",
@@ -154,7 +175,7 @@ export default {
                     id: d.producer.value.split("#")[1].split("_")[1],
                     NAnimes: d.NAnimes.value + " Animes",
                     nome: d.nome.value,
-                    photo: dat.data.items[0].link,
+                    photo: dat.data.items[se].link,
                     status: "",
                     type: "",
                     favs: " 📝 ",
@@ -163,7 +184,8 @@ export default {
                 }
               })
               .catch(() => {
-                if (this.tipe == "Anime") {
+                if (this.tipe == "Anime" || this.tipe == "Search") {
+                  console.log(d);
                   this.producers.push({
                     id: d.anime.value.split("#")[1].split("_")[1],
                     NAnimes: d.e.value + " Episodes",
