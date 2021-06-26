@@ -106,9 +106,9 @@ export default {
     :premiered ?pr;
     :type ?t;
     :title ?name.
-    FILTER regex(str(?name), "` +
+    FILTER regex(lcase(str(?name)), lcase("` +
           this.result +
-          `")
+          `"))
 } order by DESC(?i)`;
       } else {
         query =
