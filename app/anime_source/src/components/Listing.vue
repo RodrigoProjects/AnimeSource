@@ -13,7 +13,7 @@
           />
           <div class="px-6 py-4">
             <router-link
-              :to="{ name: tipe, params: { id: item.id } }"
+              :to="{ name: 'Anime', params: { id: item.id } }"
               class="font-bold text-xl mb-2"
               >{{ item.nome }}</router-link
             >
@@ -106,9 +106,24 @@ export default {
     :premiered ?pr;
     :type ?t;
     :title ?name.
-    FILTER regex(lcase(str(?name)), lcase("` +
-          this.result +
-          `"))
+    OPTIONAL {
+        ?anime ?p :Anime ; 
+        :title_japanese ?nameJapanese; 
+   	}
+    OPTIONAL {
+        ?anime ?p :Anime ; 
+        :title_english ?nameEnglish; 
+    }
+    OPTIONAL{
+        ?anime ?p :Anime ; 
+        :title_synonyms ?nameSynonyms;
+    }
+    FILTER (
+        regex( lcase(str(?name)), lcase("`+ this.result +`")) ||
+        regex( lcase(str(?nameJapanese)), lcase("`+ this.result +`")) ||
+        regex( lcase(str(?nameEnglish)), lcase("`+ this.result +`")) ||
+        regex( lcase(str(?nameSynonyms)), lcase("`+ this.result +`"))
+            )
 } order by DESC(?i)`;
       } else {
         query =
