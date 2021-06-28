@@ -13,7 +13,14 @@
           />
           <div class="px-6 py-4">
             <router-link
+              v-if="tipe != 'Search'"
               :to="{ name: tipe, params: { id: item.id } }"
+              class="font-bold text-xl mb-2"
+              >{{ item.nome }}</router-link
+            >
+            <router-link
+              v-if="tipe == 'Search'"
+              :to="{ name: 'Anime', params: { id: item.id } }"
               class="font-bold text-xl mb-2"
               >{{ item.nome }}</router-link
             >
