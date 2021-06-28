@@ -1,5 +1,5 @@
 <template>
-  <main class="profile-page" style="weight: 80%;">
+  <main class="profile-page" style="weight: 80%;" v-if="total != null">
     <section class="relative py-16">
       <div class="container mx-auto px-4">
         <h3
@@ -127,10 +127,10 @@ export default {
               .get(
                 "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
-                  "+anime+cover"
+                  "+cover"
               )
               .then((dat) => {
-                pic = dat.data.items[0].link;
+                pic = dat.data.items[1].link;
               })
               .catch((e) => {
                 console.log("Erro no get animes " + e);

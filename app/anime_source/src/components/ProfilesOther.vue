@@ -90,7 +90,6 @@ export default {
       ` :name ?nome.
     }
     `;
-    console.log("query: " + query);
     gdb
       .fetchOntobud(query)
       .then(async (response) => {
@@ -113,23 +112,41 @@ export default {
               .get(
                 "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
                   name +
-                  "+studio+logo"
+                  "+" +
+                  this.tipe +
+                  "+logo"
               )
               .then((dat2) => {
-                this.photo = dat2.data.items[0].link;
-                this.snip = dat.data.items[0].snippet;
+                if (this.tipe == "genre") {
+                  this.snip = "";
+                  this.photo = dat2.data.items[0].link;
+                } else {
+                  this.photo = dat2.data.items[0].link;
+                  this.snip = dat.data.items[0].snippet;
+                }
               })
               .catch((e) => {
-                this.snip = "Unavailable";
-                console.log("Erro no get thinger " + e);
-                this.photo =
-                  "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+                if (this.tipe == "genre") {
+                  this.snip = "";
+                  console.log("Erro no get thinger " + e);
+                  this.photo =
+                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+                } else {
+                  this.snip = "Unavailable";
+                  console.log("Erro no get thinger " + e);
+                  this.photo =
+                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
+                }
               });
             await Promise.resolve(g);
           })
           .catch((e) => {
             console.log(e);
-            this.snip = "Unavailable";
+            if (this.tipe == "genre") {
+              this.snip = "";
+            } else {
+              this.snip = "Unavailable";
+            }
             this.photo =
               "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
           });

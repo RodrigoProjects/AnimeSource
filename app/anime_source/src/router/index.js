@@ -22,7 +22,7 @@ const routes = [
     component: () => import("@/views/Editor.vue"),
   },
   {
-    path: "/Producers",
+    path: "/producers",
     name: "Producers",
     component: () => import("@/views/Producers.vue"),
   },
@@ -32,7 +32,7 @@ const routes = [
     component: () => import("@/views/Results.vue"),
   },
   {
-    path: "/Producers/:id",
+    path: "/producers/:id",
     name: "Producer",
     component: () => import("@/views/Producer.vue"),
   },

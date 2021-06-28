@@ -61,7 +61,7 @@
           <template v-if="itemIdx === 0">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a
-              :href="item"
+              :href="item.toLowerCase()"
               class="bg-yellow-600 text-white hover:bg-yellow-400 block px-3 py-2 rounded-md text-base font-medium"
               >{{ item }}</a
             >

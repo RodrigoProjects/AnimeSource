@@ -68,7 +68,7 @@
                       </div>
                       <div>
                         <a
-                          :href="'/studios/' + item.id"
+                          :href="'/producers/' + item.id"
                           class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:bg-purple hover:text-yellow-500"
                         >
                           More
