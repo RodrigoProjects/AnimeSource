@@ -97,7 +97,9 @@ export default {
         var name = this.producer.nome.replace(" ", "+");
         const g = axios
           .get(
-            "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
+            "https://www.googleapis.com/customsearch/v1?key=" +
+              process.env.VUE_APP_KEY +
+              "&cx=b4564266b17feb682&searchType=image&q=" +
               name +
               "+" +
               this.tipe +
@@ -110,7 +112,9 @@ export default {
           .then(async (dat) => {
             const g = axios
               .get(
-                "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
+                "https://www.googleapis.com/customsearch/v1?key=" +
+                  process.env.VUE_APP_KEY +
+                  "&cx=b4564266b17feb682&searchType=image&q=" +
                   name +
                   "+" +
                   this.tipe +

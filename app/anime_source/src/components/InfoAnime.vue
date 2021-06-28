@@ -88,17 +88,21 @@
                 :key="item.id"
                 :href="'/genre/' + item.id"
               >
-                {{ item.value }}&nbsp;
+                #{{ item.value }}&nbsp;
               </a>
             </div>
 
             <div class="mb-2 text-gray-500">
               {{ anime.rating }}
             </div>
+            <div class="mb-2 text-gray-500">
+              {{ anime.status }}
+            </div>
           </div>
 
           <div class="mt-10 py-10 border-t border-gray-300 text-center">
             <h3
+              v-if="anime.background"
               class="text-xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
             >
               Background
@@ -107,6 +111,58 @@
               <div class="w-full lg:w-9/12 px-4">
                 <p class="mb-4 text-lg leading-relaxed text-gray-800">
                   {{ anime.background }}
+                </p>
+              </div>
+            </div>
+            <br />
+            <h3
+              class="text-xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+            >
+              Details
+            </h3>
+            <div class="flex flex-wrap justify-center">
+              <div class="w-full lg:w-9/12 px-4">
+                <p
+                  v-if="anime.aired"
+                  class="mb-4 text-lg leading-relaxed text-gray-800"
+                >
+                  Aired - {{ anime.aired }}
+                </p>
+                <p
+                  v-if="anime.duration"
+                  class="mb-4 text-lg leading-relaxed text-gray-800"
+                >
+                  Duration - {{ anime.duration }}
+                </p>
+                <p
+                  v-if="anime.broadcast"
+                  class="mb-4 text-lg leading-relaxed text-gray-800"
+                >
+                  Broadcast - {{ anime.broadcast }}
+                </p>
+                <p
+                  v-if="anime.premiered"
+                  class="mb-4 text-lg leading-relaxed text-gray-800"
+                >
+                  Premiered - {{ anime.premiered }}
+                </p>
+                <p
+                  v-if="anime.scored_by"
+                  class="mb-4 text-lg leading-relaxed text-gray-800"
+                >
+                  Scored by {{ anime.scored_by }} users
+                </p>
+                <p
+                  v-if="anime.source"
+                  class="mb-4 text-lg leading-relaxed text-gray-800"
+                >
+                  Source Material - {{ anime.source }}
+                </p>
+                <p
+                  v-if="anime.title_synonyms"
+                  class="mb-4 text-lg leading-relaxed text-gray-800"
+                >
+                  Other titles : {{ anime.title_synonyms }}
                 </p>
               </div>
             </div>
@@ -171,30 +227,33 @@ export default {
         for (var i = 0; i < variab.length; i++) {
           this.anime[Object.keys(variab[i])[0]] = Object.values(variab[i])[0];
         }
+        console.log(this.anime);
+
         var name = this.anime.title.replace(" ", "+");
         const g = axios
           .get(
-            "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
+            "https://www.googleapis.com/customsearch/v1?key=" +
+              process.env.VUE_APP_KEY +
+              "&cx=b4564266b17feb682&searchType=image&q=" +
               name +
               "+cover"
           )
           .then((dat) => {
             this.photo = dat.data.items[1].link;
           })
-          .catch((e) => {
-            console.log("Erro no get anime photo " + e);
+          .catch(() => {
             this.photo =
               "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
           });
         await Promise.resolve(g);
         var query2 =
           `select * where {
-:anime_` +
+            :anime_` +
           this.d +
           ` a :Anime;
-              :hasGenre ?p.
-               ?p :name ?o.
-}`;
+                :hasGenre ?p.
+                 ?p :name ?o.
+            }`;
         const r = gdb
           .fetchOntobud(query2)
           .then(async (ri) => {

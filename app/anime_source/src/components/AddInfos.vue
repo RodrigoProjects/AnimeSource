@@ -208,7 +208,6 @@ export default {
             id: el.ep.value.split("#")[1].split("_")[1],
           };
         });
-        console.log(this.themes);
       })
       .catch((e) => console.log(e));
     const i = gdb
@@ -217,7 +216,9 @@ export default {
         response.data.results.bindings.map(async (el) => {
           axios
             .get(
-              "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
+              "https://www.googleapis.com/customsearch/v1?key=" +
+                process.env.VUE_APP_KEY +
+                "&cx=b4564266b17feb682&searchType=image&q=" +
                 el.l.value +
                 "+Producer+logo"
             )
@@ -237,8 +238,6 @@ export default {
               });
             });
         });
-        console.log("producers:");
-        console.log(this.producers);
       })
       .catch((e) => console.log(e));
     const j = gdb
@@ -247,7 +246,9 @@ export default {
         response.data.results.bindings.map(async (el) => {
           axios
             .get(
-              "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
+              "https://www.googleapis.com/customsearch/v1?key=" +
+                process.env.VUE_APP_KEY +
+                "&cx=b4564266b17feb682&searchType=image&q=" +
                 el.l.value +
                 "+Studio+logo"
             )

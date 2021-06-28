@@ -121,10 +121,7 @@ export default {
         ?anime ?p :Anime ; 
         :title_english ?nameEnglish; 
     }
-    OPTIONAL{
-        ?anime ?p :Anime ; 
-        :title_synonyms ?nameSynonyms;
-    }
+   
     FILTER (
         regex( lcase(str(?name)), lcase("` +
           this.result +
@@ -153,11 +150,9 @@ export default {
       order by DESC(?NAnimes)
     `;
       }
-      console.log(query);
       gdb
         .fetchOntobud(query)
         .then(async (response) => {
-          //console.log("response::: " + JSON.stringify(response));
           this.total = response.data.results.bindings.length;
 
           var i = 0;
@@ -183,7 +178,9 @@ export default {
             }
             const p = axios
               .get(
-                "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
+                "https://www.googleapis.com/customsearch/v1?key=" +
+                  process.env.VUE_APP_KEY +
+                  "&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
                   "+" +
                   coiso
@@ -215,7 +212,6 @@ export default {
               })
               .catch(() => {
                 if (this.tipe == "Anime" || this.tipe == "Search") {
-                  console.log(d);
                   this.producers.push({
                     id: d.anime.value.split("#")[1].split("_")[1],
                     NAnimes: d.e.value + " Episodes",
