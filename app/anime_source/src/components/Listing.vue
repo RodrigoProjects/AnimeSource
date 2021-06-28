@@ -13,13 +13,13 @@
           />
           <div class="px-6 py-4">
             <router-link
-              v-if="tipe != 'Search'"
+              v-if="tipe != 'Search' && tipe != 'Genre'"
               :to="{ name: tipe, params: { id: item.id } }"
               class="font-bold text-xl mb-2"
               >{{ item.nome }}</router-link
             >
             <router-link
-              v-if="tipe == 'Search'"
+              v-if="tipe == 'Search' || tipe == 'Genre'"
               :to="{ name: 'Anime', params: { id: item.id } }"
               class="font-bold text-xl mb-2"
               >{{ item.nome }}</router-link
@@ -104,7 +104,7 @@ export default {
     }   order by DESC(?i)`;
       } else if (this.tipe == "Search") {
         query =
-          `select * where { 
+          `select * where {
 	?anime ?p :Anime ;
     :favorites ?i;
     :episodes ?e;
@@ -114,14 +114,14 @@ export default {
     :type ?t;
     :title ?name.
     OPTIONAL {
-        ?anime ?p :Anime ; 
-        :title_japanese ?nameJapanese; 
+        ?anime ?p :Anime ;
+        :title_japanese ?nameJapanese;
    	}
     OPTIONAL {
-        ?anime ?p :Anime ; 
-        :title_english ?nameEnglish; 
+        ?anime ?p :Anime ;
+        :title_english ?nameEnglish;
     }
-   
+
     FILTER (
         regex( lcase(str(?name)), lcase("` +
           this.result +
@@ -137,6 +137,23 @@ export default {
           `"))
             )
 } order by DESC(?i)`;
+      } else if (this.tipe == "Genre") {
+        query =
+          `select * where {
+        ?anime ?s :Anime;
+             :favorites ?i;
+    :title ?name;
+    :episodes ?e;
+    :status ?sd;
+    :favorites ?f;
+    :premiered ?pr;
+    :type ?t;
+    :has` +
+          this.tipe +
+          ` :genre_` +
+          this.result +
+          `.
+    }   order by DESC(?i)`;
       } else {
         query =
           `
@@ -165,7 +182,11 @@ export default {
             var amostra = "";
             var coiso = "";
             var se = "";
-            if (this.tipe == "Anime" || this.tipe == "Search") {
+            if (
+              this.tipe == "Anime" ||
+              this.tipe == "Search" ||
+              this.tipe == "Genre"
+            ) {
               nome = d.name.value.replace(" ", "+");
               amostra = "cover";
               coiso = "" + amostra;
@@ -186,7 +207,11 @@ export default {
                   coiso
               )
               .then((dat) => {
-                if (this.tipe == "Anime" || this.tipe == "Search") {
+                if (
+                  this.tipe == "Anime" ||
+                  this.tipe == "Search" ||
+                  this.tipe == "Genre"
+                ) {
                   this.producers.push({
                     id: d.anime.value.split("#")[1].split("_")[1],
                     NAnimes: d.e.value + " Episodes",
@@ -211,7 +236,11 @@ export default {
                 }
               })
               .catch(() => {
-                if (this.tipe == "Anime" || this.tipe == "Search") {
+                if (
+                  this.tipe == "Anime" ||
+                  this.tipe == "Search" ||
+                  this.tipe == "Genre"
+                ) {
                   this.producers.push({
                     id: d.anime.value.split("#")[1].split("_")[1],
                     NAnimes: d.e.value + " Episodes",

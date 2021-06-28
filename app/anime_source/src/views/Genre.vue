@@ -1,48 +1,27 @@
 <template>
   <div>
     <main class="profile-page" style="weight: 80%;">
-      <section class="relative block" style="height: 400px;">
-        <div
-          class="absolute top-0 w-full h-full bg-center bg-cover"
-          style="
-            background-image: url('https://i.redd.it/de38p8tsp2t21.png?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80');
-          "
-        ></div>
-        <div
-          class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-          style="height: 70px;"
-        >
-          <svg
-            class="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              class="text-gray-300 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
-          </svg>
-        </div>
-      </section>
-      <ProfilesOther :tipe="tipe" :id="id" />
+      <Headerings :photo="headering" :tipe="pra" />
+      <Lister :tipe="tipe" :result="res" />
     </main>
   </div>
 </template>
 
 <script>
-import ProfilesOther from "../components/ProfilesOther.vue";
+import Lister from "../components/Listing.vue";
+import Headerings from "../components/Headerings.vue";
 export default {
   components: {
-    ProfilesOther: ProfilesOther,
+    Headerings: Headerings,
+    Lister: Lister,
   },
   data() {
+    console.log(this.$route.params.pra);
     return {
-      id: this.$route.params.id,
-      tipe: "genre",
+      pra: this.$route.params.pra,
+      res: this.$route.params.id,
+      headering: "https://i.redd.it/de38p8tsp2t21.png",
+      tipe: "Genre",
     };
   },
 };

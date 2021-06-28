@@ -121,36 +121,22 @@ export default {
                   "+logo"
               )
               .then((dat2) => {
-                if (this.tipe == "genre") {
-                  this.snip = "";
-                  this.photo = dat2.data.items[0].link;
-                } else {
-                  this.photo = dat2.data.items[0].link;
-                  this.snip = dat.data.items[0].snippet;
-                }
+                this.photo = dat2.data.items[0].link;
+                this.snip = dat.data.items[0].snippet;
               })
               .catch((e) => {
-                if (this.tipe == "genre") {
-                  this.snip = "";
-                  console.log("Erro no get thinger " + e);
-                  this.photo =
-                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
-                } else {
-                  this.snip = "Unavailable";
-                  console.log("Erro no get thinger " + e);
-                  this.photo =
-                    "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
-                }
+                this.snip = "Unavailable";
+                console.log("Erro no get thinger " + e);
+                this.photo =
+                  "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
               });
             await Promise.resolve(g);
           })
           .catch((e) => {
             console.log(e);
-            if (this.tipe == "genre") {
-              this.snip = "";
-            } else {
-              this.snip = "Unavailable";
-            }
+
+            this.snip = "Unavailable";
+
             this.photo =
               "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
           });

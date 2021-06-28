@@ -83,13 +83,16 @@
             </h5>
 
             <div class="mb-2 text-gray-700 mt-10">
-              <a
+              <router-link
                 v-for="item in anime.genre"
                 :key="item.id"
-                :href="'/genre/' + item.id"
+                :to="{
+                  name: 'Genre',
+                  params: { id: item.id, pra: item.value },
+                }"
               >
                 #{{ item.value }}&nbsp;
-              </a>
+              </router-link>
             </div>
 
             <div class="mb-2 text-gray-500">

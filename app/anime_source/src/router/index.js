@@ -34,6 +34,7 @@ const routes = [
   {
     path: "/producers/:id",
     name: "Producer",
+
     component: () => import("@/views/Producer.vue"),
   },
   {
