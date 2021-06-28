@@ -217,7 +217,7 @@ export default {
         response.data.results.bindings.map(async (el) => {
           axios
             .get(
-              "https://www.googleapis.com/customsearch/v1?key=AIzaSyBldoieByYvmvhEMXFemem7O65urWVoRlI&cx=b4564266b17feb682&searchType=image&q=" +
+              "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
                 el.l.value +
                 "+Producer+logo"
             )
@@ -247,7 +247,7 @@ export default {
         response.data.results.bindings.map(async (el) => {
           axios
             .get(
-              "https://www.googleapis.com/customsearch/v1?key=AIzaSyBldoieByYvmvhEMXFemem7O65urWVoRlI&cx=b4564266b17feb682&searchType=image&q=" +
+              "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
                 el.l.value +
                 "+Studio+logo"
             )

@@ -125,7 +125,7 @@ export default {
               "https://www.wpkube.com/wp-content/uploads/2019/02/503-unavailable-error-wpk.jpg";
             const g = axios
               .get(
-                "https://www.googleapis.com/customsearch/v1?key=AIzaSyDyHq1RRP_qaMuQhQlRMkr7nD5iX6Znayc&cx=b4564266b17feb682&searchType=image&q=" +
+                "https://www.googleapis.com/customsearch/v1?key=" + process.env.VUE_APP_KEY + "&cx=b4564266b17feb682&searchType=image&q=" +
                   nome +
                   "+cover"
               )
