@@ -8,22 +8,29 @@
           >
             <router-link to="/">AnimeSource</router-link>
           </div>
-          <div class="flex">
-            <input
-              type="text"
-              v-model="input"
-              id="anime1"
-              class="focus:ring-yellow-700 hidden focus:border-yellow-600 ml-28 sm:text-sm border-yellow-500 xl:w-120 lg:w-96 md:w-80 lg:block rounded-md"
-              placeholder="Search here..."
-            />
+          <form
+            @submit.prevent="
+              this.$router.push({ name: 'Search', params: { id: input } })
+            "
+          >
+            <div class="flex">
+              <input
+                type="text"
+                v-model="input"
+                id="anime1"
+                class="focus:ring-yellow-700 hidden focus:border-yellow-600 ml-28 sm:text-sm border-yellow-500 xl:w-120 lg:w-96 md:w-80 lg:block rounded-md"
+                placeholder="Search here..."
+              />
 
-            <a
-              :href="'/search/' + input"
-              class="bg-yellow-200 w-auto rounded-md lg:block hidden left-8 items-center text-yellow-900 p-2 hover:text-yellows-400"
-            >
-              Search
-            </a>
-          </div>
+              <button
+                type="Submit"
+                :href="'/search/' + input"
+                class="bg-yellow-200 w-auto rounded-md lg:block hidden left-8 items-center text-yellow-900 p-2 hover:text-yellows-400"
+              >
+                Search
+              </button>
+            </div>
+          </form>
           <div></div>
           <div class="hidden md:block">
             <div class="flex items-baseline space-x-4">
