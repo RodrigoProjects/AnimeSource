@@ -13,7 +13,7 @@
           />
           <div class="px-6 py-4">
             <router-link
-              :to="{ name: 'Anime', params: { id: item.id } }"
+              :to="{ name: tipe, params: { id: item.id } }"
               class="font-bold text-xl mb-2"
               >{{ item.nome }}</router-link
             >
@@ -119,10 +119,18 @@ export default {
         :title_synonyms ?nameSynonyms;
     }
     FILTER (
-        regex( lcase(str(?name)), lcase("`+ this.result +`")) ||
-        regex( lcase(str(?nameJapanese)), lcase("`+ this.result +`")) ||
-        regex( lcase(str(?nameEnglish)), lcase("`+ this.result +`")) ||
-        regex( lcase(str(?nameSynonyms)), lcase("`+ this.result +`"))
+        regex( lcase(str(?name)), lcase("` +
+          this.result +
+          `")) ||
+        regex( lcase(str(?nameJapanese)), lcase("` +
+          this.result +
+          `")) ||
+        regex( lcase(str(?nameEnglish)), lcase("` +
+          this.result +
+          `")) ||
+        regex( lcase(str(?nameSynonyms)), lcase("` +
+          this.result +
+          `"))
             )
 } order by DESC(?i)`;
       } else {
