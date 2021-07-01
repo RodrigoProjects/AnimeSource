@@ -74,11 +74,9 @@ def main(argv):
 def toTTL(r):
     data = r['data']
     output = r['output']
-    anime = dict()
     genero = dict()
     licensors = dict()
     producers = dict()
-    references = dict() # nao percebi as referencias ?? --TODO
     studios = dict()
     themesDic = dict()
     c = 0
@@ -287,7 +285,7 @@ def toTTL(r):
 
 
 
-        print(f'Tratados\n\t{c} animes\n\t{idGener-1} generos\n\t{idProducer-1} producer\n\t{idLicense-1} licensor\n\t{idStudio-1} studio\n\t{idTheme} Themes')
+        print(f'Tratados\n\t{c} animes\n\t{idGener-1} generos\n\t{idProducer-1} producer\n\t{idLicense-1} licensor\n\t{idStudio-1} studio\n\t{idTheme-1} Themes')
 
 
 if __name__ == "__main__":
